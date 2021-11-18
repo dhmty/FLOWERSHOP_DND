@@ -33,12 +33,12 @@ public class Flower {
 	private int discount;
 	private String image;
 	private int views;
-//	
-//	@OneToMany(mappedBy = "flower", fetch = FetchType.EAGER)
-//	private Collection<ShopCart> shopCarts;
 	
-//	@OneToMany(mappedBy = "flower", fetch = FetchType.EAGER)
-//	private Collection<Order> orders;
+	@OneToMany(mappedBy = "flower", fetch = FetchType.EAGER)
+	private Collection<ShopCart> shopCarts;
+	
+	@OneToMany(mappedBy = "flower", fetch = FetchType.EAGER)
+	private Collection<Order> orders;
 	
 	@Override
     public String toString() {

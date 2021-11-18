@@ -28,7 +28,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name ="Transaction")
+@Table(name ="[Transaction]")
 public class Transaction {
 	@Id
 	@GeneratedValue

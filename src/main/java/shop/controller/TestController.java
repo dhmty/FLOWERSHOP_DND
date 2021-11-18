@@ -13,9 +13,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import shop.dao.AdminDAO;
 import shop.dao.FlowerDAO;
+import shop.dao.OrderDAO;
+import shop.dao.ShopCartDAO;
+import shop.dao.TransactionDAO;
 import shop.dao.UserDAO;
 import shop.entity.Admin;
 import shop.entity.Flower;
+import shop.entity.Order;
+import shop.entity.ShopCart;
+import shop.entity.Transaction;
 import shop.entity.User;
 
 
@@ -30,6 +36,15 @@ public class TestController {
 	
 	@Autowired
 	UserDAO userDao;
+	
+	@Autowired
+	ShopCartDAO shopCartDao;
+	
+	@Autowired
+	TransactionDAO transactionDao;
+	
+	@Autowired
+	OrderDAO orderDao;
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index() {
@@ -46,6 +61,21 @@ public class TestController {
 		List<User> listUser=userDao.getListUser();
 		for (User u:listUser) {
 			System.out.println(u.toString());
+		}
+		
+		List<ShopCart> listCart=shopCartDao.getListCart();
+		for (ShopCart cart:listCart) {
+			System.out.println(cart.toString());
+		}
+		
+		List<Transaction> listTrans=transactionDao.getListTrans();
+		for (Transaction t:listTrans) {
+			System.out.println(t.toString());
+		}
+		
+		List<Order> listOrder=orderDao.getListOrder();
+		for (Order o:listOrder) {
+			System.out.println(o.toString());
 		}
 		
 		return "test";

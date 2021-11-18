@@ -24,7 +24,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "User")
+@Table(name = "[User]")
 public class User {
 	@Id
 	@GeneratedValue
@@ -34,15 +34,15 @@ public class User {
 	private String phone;
 	private String address;
 	private String password;
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	private Date created;
 	
-//	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-//	private Collection<ShopCart> shopCarts;
-//
-//	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-//	private Collection<Transaction> transactions;
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	private Collection<ShopCart> shopCarts;
+
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	private Collection<Transaction> transactions;
 	
 	@Override
     public String toString() {

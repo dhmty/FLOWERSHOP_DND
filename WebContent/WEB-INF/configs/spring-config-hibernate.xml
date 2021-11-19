@@ -34,6 +34,8 @@
 	       </props>
 	    </property>
 		<property name="packagesToScan" value="shop.entity"/>
+    
+		
 	</bean>
 	
 	<!-- Transaction Manager -->

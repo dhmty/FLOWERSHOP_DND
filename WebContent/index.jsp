@@ -8,5 +8,9 @@
 </head>
 <body>
 Hello world
+<%
+String url="home/index.htm";
+response.sendRedirect(url);
+%>
 </body>
 </html>

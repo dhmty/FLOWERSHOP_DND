@@ -35,6 +35,21 @@ public class UserDAO {
 			System.out.println("error"+e.getMessage());
 		}
 		return new ArrayList<>();
-
 	}
+	
+	// get login
+		public User login(String email, String password) {
+			Session session = factory.getCurrentSession();
+			String hql = "FROM User u WHERE u.email = :email AND u.password = :password";
+			Query query = session.createQuery(hql);
+			query.setParameter("email", email);
+			query.setParameter("password", password);
+			List<User> list = query.list();
+			for (User i : list) {
+				System.out.println("fullname...." +i.getName());
+			}
+			return list.size() > 0 ? list.get(0) : null;
+		}
+		
+	
 }

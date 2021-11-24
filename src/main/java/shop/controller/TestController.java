@@ -60,7 +60,7 @@ public class TestController {
 	@Autowired
 	CategoryDAO categoryDao;
 	
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public String index() {
 		List<Admin> listAdmin=adminDao.getListAdmin();
 		for (Admin a:listAdmin) {

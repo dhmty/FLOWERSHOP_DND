@@ -75,15 +75,15 @@
                             <p class="desc-content">Please login using account detail bellow.</p>
                         </div>
                         <!-- Xử Lý Form login  -->
-                        <span style=" color: red">${message}</span>
+                        <div class="mb-3" style=" color: red">${message}</div>
                         <form:form action="${pageContext.request.contextPath}/pages/login.htm" method="post" modelAttribute="detailUser">
                             <div class="single-input-item mb-3">
                                 <form:input type="text" path="email" placeholder="Enter your Email"/>
-                                <form:errors path="email"/>
+                                <form:errors style="color:red" path="email"/>
                             </div>
                             <div class="single-input-item mb-3">
                                 <form:input type="password" path="password" placeholder="Enter your Password"/>
-                                <form:errors path="password"/>
+                                <form:errors style="color:red" path="password"/>
                             </div>
                             <div class="single-input-item mb-3">
                                 <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
@@ -101,7 +101,7 @@
                                 type="submit">Login</button>
                             </div>
                             <div class="single-input-item">
-                                <a href="register.html">Creat Account</a>
+                                <a href="${pageContext.request.contextPath}/pages/register.htm">Create Account</a>
                             </div>
                         </form:form>
                     </div>

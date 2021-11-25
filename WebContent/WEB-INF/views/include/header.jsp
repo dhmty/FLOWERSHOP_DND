@@ -85,7 +85,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="${pageContext.request.contextPath}/pages/contact_us.htm">
+                                    <a href="${pageContext.request.contextPath}/pages/frequently_questions.htm">
                                         <span class="menu-text"> Pages</span>
                                         <i class="fa fa-angle-down"></i>
                                     </a>
@@ -223,9 +223,9 @@
                             <button class="search-btn"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
-<!--                     mobile menu start
+                    <!--  mobile menu start -->
                     <div class="mobile-navigation">
-                        mobile menu navigation start
+                       <!--  mobile menu navigation start -->
                         <nav>
                             <ul class="mobile-menu">
                                 <li class="menu-item-has-children"><a href="#">Home</a>
@@ -290,9 +290,9 @@
                                 <li><a href="contact-us.html">Contact</a></li>
                             </ul>
                         </nav>
-                        mobile menu navigation end
+                      <!--   mobile menu navigation end -->
                     </div>
-                    mobile menu end -->
+                   <!--  mobile menu end  -->
                     <div class="offcanvas-widget-area">
                         <div class="switcher">
                             <div class="language">

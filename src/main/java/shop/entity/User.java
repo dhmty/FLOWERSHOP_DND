@@ -11,7 +11,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Pattern;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -20,11 +23,22 @@ public class User {
 	@Id
 	@GeneratedValue
 	private int id;
+	
+	@NotBlank(message = "Name cannot be blank")
 	private String name;
+	
+	@NotBlank(message = "Email cannot be blank")
+	@Email(message = "Email invalidate")
 	private String email;
+	
+	@NotBlank(message = "Phone Number cannot be blank")
+	@Pattern(regexp = "^(0|\\+84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$",message = "PhoneNumber is not illegal")
 	private String phone;
 	private String address;
+	
+	@NotBlank(message = "Password cannot be blank")
 	private String password;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	private Date created;

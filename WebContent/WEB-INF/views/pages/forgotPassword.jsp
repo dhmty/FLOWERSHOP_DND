@@ -55,7 +55,7 @@
                     <div class="breadcrumb-content position-relative section-content">
                         <h3 class="title-3">Reset Password</h3>
                         <ul>
-                            <li><a href="index.html">Home</a></li>
+                            <li><a href="${pageContext.request.contextPath}/home/index.htm">Home</a></li>
                             <li>Reset Password</li>
                         </ul>
                     </div>
@@ -65,21 +65,36 @@
     </div>
     <!-- Breadcrumb Area End Here -->
     <!-- Error 404 Area Start Here -->
-    <div class="error-area">
-        <div class="container">
+     <div class="login-register-area mt-no-text">
+        <div class="container custom-area">
             <div class="row">
-                <div class="col-12">
-                    <div class="error_form">
-                        <h1>YES</h1>
-                        <h2>A email wil be sent to you. </h2>
-                        <p>Check your email to reset password, and back to login page.</p>
-                        <a href="${pageContext.request.contextPath}/pages/login.htm">Back to login page</a>
+                <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-custom">
+                    <div class="login-register-wrapper">
+                        <div class="section-content text-center mb-5">
+                            <h2 class="title-4 mb-2">Reset</h2>
+                            <h2 class="title-4 mb-2">User's Password</h2>
+                            <p class="desc-content">Please enter your email in the box below.</p>
+                            <p class="desc-content">Email with new password will be sent to your email.</p>
+                        </div>
+                    <!-- Xử Lý Form login  -->
+                        <div class="mb-3" style=" color: red">${message}</div>
+                        <form:form action="${pageContext.request.contextPath}/pages/forgotPassword.htm" method="post">
+                            <div class="single-input-item mb-3" style="display:flex">
+                                <input type="text" name=email placeholder="Enter your User's Email">
+                                <button class="btn flosun-button secondary-btn theme-color rounded-0" 
+                                style="height: 40px; background: blueviolet;" type="submit">Send</button>
+                            </div>
+                        </form:form>
+                         <div class="error_form">
+	                        <h2 style="color: blueviolet">${success}</h2>
+	                       <!--  Send Success. Check your email to reset password.-->
+	                        <a href="${pageContext.request.contextPath}/pages/login.htm">Back to login page</a>
+	                      </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Error 404 Area End Here -->
     
     
     <%@include file="/WEB-INF/views/include/footer.jsp"%>

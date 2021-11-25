@@ -50,7 +50,7 @@
                         <div class="single-footer-widget m-0">
                             <div class="footer-logo">
                                 <a href="index.html">
-                                    <img src="assets/images/logo/logo-footer.png" alt="Logo Image">
+                                    <img src="<c:url value='/resources/assets/images/logo/logo-footer.jpg' />" alt="Logo Image">
                                 </a>
                             </div>
                             <p class="desc-content">Lorem Khaled Ipsum is a major key to success. To be successful you’ve got to work hard you’ve got to make it.</p>

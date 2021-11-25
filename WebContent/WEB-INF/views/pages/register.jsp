@@ -55,7 +55,7 @@
                     <div class="breadcrumb-content position-relative section-content">
                         <h3 class="title-3">Login-Register</h3>
                         <ul>
-                            <li><a href="index.html">Home</a></li>
+                            <li><a href="${pageContext.request.contextPath}/home/index.htm">Home</a></li>
                             <li>Login-Register</li>
                         </ul>
                     </div>
@@ -74,18 +74,24 @@
                             <h2 class="title-4 mb-2">Create Account</h2>
                             <p class="desc-content">Please Register using account detail bellow.</p>
                         </div>
-                        <form action="#" method="post">
+                         <!-- Xử Lý Form Register  -->
+                        <div class="mb-3" style=" color: red">${message}</div>
+                        <form:form action="${pageContext.request.contextPath}/pages/register.htm" method="post" modelAttribute="detailUser">
                             <div class="single-input-item mb-3">
-                                <input type="text" placeholder="First Name">
+                                <form:input type="text" path="name" placeholder="FullName"/>
+                                <form:errors style="color:red" path="name"/>
                             </div>
                             <div class="single-input-item mb-3">
-                                <input type="text" placeholder="Last Name">
+                                <form:input type="text" path="phone" placeholder="Phone Number"/>
+                                <form:errors style="color:red" path="phone"/>
+                            </div>
+                            <div class="single-input-item mb-3">	
+                               <form:input type="text" path="email" placeholder="Enter your Email"/>
+                               <form:errors style="color:red" path="email"/>
                             </div>
                             <div class="single-input-item mb-3">
-                                <input type="email" placeholder="Email or Username">
-                            </div>
-                            <div class="single-input-item mb-3">
-                                <input type="password" placeholder="Enter your Password">
+                                <form:input type="password" path="password" placeholder="Enter your Password"/>
+                                <form:errors style="color:red" path="password"/>
                             </div>
                             <div class="single-input-item mb-3">
                                 <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
@@ -100,7 +106,7 @@
                             <div class="single-input-item mb-3">
                                 <button class="btn flosun-button secondary-btn theme-color rounded-0">Register</button>
                             </div>
-                        </form>
+                        </form:form>
                     </div>
                 </div>
             </div>

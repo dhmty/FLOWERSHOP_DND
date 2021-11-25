@@ -355,7 +355,7 @@
 	    	item.className += " active";
 	        console.log({ index, item })
 	      }); */
-	      var item=lis[8];
+	      var item=lis[lis.length-2];
 	      item.className += " active";
 	   
 	</script>

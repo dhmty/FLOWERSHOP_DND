@@ -56,7 +56,7 @@
                     <div class="breadcrumb-content position-relative section-content">
                         <h3 class="title-3">Shopping Cart</h3>
                         <ul>
-                            <li><a href="index.html">Home</a></li>
+                            <li><a href="${pageContext.request.contextPath}/home/index.htm">Home</a></li>
                             <li>Shopping Cart</li>
                         </ul>
                     </div>
@@ -70,6 +70,7 @@
         <div class="container custom-area">
             <div class="row">
                 <div class="col-lg-12 col-custom">
+                	<form:form method="GET">
                     <!-- Cart Table Area -->
                     <div class="cart-table table-responsive">
                         <table class="table table-bordered">
@@ -84,14 +85,15 @@
                                 </tr>
                             </thead>
                             <tbody>
+                             <c:forEach var="cart" items="${carts}">
                                 <tr>
-                                    <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/images/product/small-size/1.jpg" alt="Product" /></a></td>
-                                    <td class="pro-title"><a href="#">Pearly Everlasting <br> s / green</a></td>
-                                    <td class="pro-price"><span>$295.00</span></td>
+                                    <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/flower/${cart.flower.image}" alt="Product" /></a></td>
+                                    <td class="pro-title"><a href="#">${cart.flower.name}<br> s / green</a></td>
+                                    <td class="pro-price"><span>${cart.amount}</span></td>
                                     <td class="pro-quantity">
                                         <div class="quantity">
                                             <div class="cart-plus-minus">
-                                                <input class="cart-plus-minus-box" value="0" type="text">
+                                                <input class="cart-plus-minus-box" name="qtt${cart.id}" value="${cart.quantity}" type="text">
                                                 <div class="dec qtybutton">-</div>
                                                 <div class="inc qtybutton">+</div>
                                                 <div class="dec qtybutton"><i class="fa fa-minus"></i></div>
@@ -99,78 +101,27 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="pro-subtotal"><span>$295.00</span></td>
-                                    <td class="pro-remove"><a href="#"><i class="lnr lnr-trash"></i></a></td>
+                                    <td class="pro-subtotal"><span>${cart.amount*cart.quantity}</span></td>
+                                    <td class="pro-remove"><a href="${pageContext.request.contextPath}/shop/cart/delete/${cart.id}.htm"><i class="lnr lnr-trash"></i></a></td>
                                 </tr>
-                                <tr>
-                                    <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/images/product/small-size/2.jpg" alt="Product" /></a></td>
-                                    <td class="pro-title"><a href="#">Jack in the Pulpit <br> red</a></td>
-                                    <td class="pro-price"><span>$275.00</span></td>
-                                    <td class="pro-quantity">
-                                        <div class="quantity">
-                                            <div class="cart-plus-minus">
-                                                <input class="cart-plus-minus-box" value="0" type="text">
-                                                <div class="dec qtybutton">-</div>
-                                                <div class="inc qtybutton">+</div>
-                                                <div class="dec qtybutton"><i class="fa fa-minus"></i></div>
-                                                <div class="inc qtybutton"><i class="fa fa-plus"></i></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="pro-subtotal"><span>$550.00</span></td>
-                                    <td class="pro-remove"><a href="#"><i class="lnr lnr-trash"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/images/product/small-size/3.jpg" alt="Product" /></a></td>
-                                    <td class="pro-title"><a href="#">Glory of the Snow <br> s</a></td>
-                                    <td class="pro-price"><span>$295.00</span></td>
-                                    <td class="pro-quantity">
-                                        <div class="quantity">
-                                            <div class="cart-plus-minus">
-                                                <input class="cart-plus-minus-box" value="0" type="text">
-                                                <div class="dec qtybutton">-</div>
-                                                <div class="inc qtybutton">+</div>
-                                                <div class="dec qtybutton"><i class="fa fa-minus"></i></div>
-                                                <div class="inc qtybutton"><i class="fa fa-plus"></i></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="pro-subtotal"><span>$295.00</span></td>
-                                    <td class="pro-remove"><a href="#"><i class="lnr lnr-trash"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/images/product/small-size/4.jpg" alt="Product" /></a></td>
-                                    <td class="pro-title"><a href="#">Rose bouquet white</a></td>
-                                    <td class="pro-price"><span>$110.00</span></td>
-                                    <td class="pro-quantity">
-                                        <div class="quantity">
-                                            <div class="cart-plus-minus">
-                                                <input class="cart-plus-minus-box" value="2" type="text">
-                                                <div class="dec qtybutton">-</div>
-                                                <div class="inc qtybutton">+</div>
-                                                <div class="dec qtybutton"><i class="fa fa-minus"></i></div>
-                                                <div class="inc qtybutton"><i class="fa fa-plus"></i></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="pro-subtotal"><span>$110.00</span></td>
-                                    <td class="pro-remove"><a href="#"><i class="lnr lnr-trash"></i></a></td>
-                                </tr>
+                              </c:forEach>
                             </tbody>
                         </table>
                     </div>
                     <!-- Cart Update Option -->
                     <div class="cart-update-option d-block d-md-flex justify-content-between">
-                        <div class="apply-coupon-wrapper">
+                        <%-- <div class="apply-coupon-wrapper">
                             <form action="#" method="post" class=" d-block d-md-flex">
-                                <input type="text" placeholder="Enter Your Coupon Code" required />
+                                <input type="text" placeholder="Enter Your Coupon Code" />
                                 <button class="btn flosun-button primary-btn rounded-0 black-btn">Apply Coupon</button>
                             </form>
-                        </div>
+                        </div> --%>
                         <div class="cart-update mt-sm-16">
-                            <a href="#" class="btn flosun-button primary-btn rounded-0 black-btn">Update Cart</a>
+                           <%--  <a href="${pageContext.request.contextPath}/shop/cart/update.htm" type="submit" class="btn flosun-button primary-btn rounded-0 black-btn">Update Cart</a> --%>
+                            <input class="btn flosun-button primary-btn rounded-0 black-btn" type="submit" formaction="${pageContext.request.contextPath}/shop/cart/update.htm" value="Update Cart">
                         </div>
                     </div>
+                  </form:form>
                 </div>
             </div>
             <div class="row">

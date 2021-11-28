@@ -37,6 +37,18 @@ public class FlowerDAO {
 		return new ArrayList<>();
 
 	}
+	// get Flower by id
+	public Flower getFlowerById(int id) {
+		Flower flower = null;
+		Session session = factory.getCurrentSession();
+		try {
+			flower = (Flower) session.get(Flower.class, id);
+		} catch (Exception e) {
+			System.out.print("errors" + e.getMessage());
+		}
+		return flower;
+	}
+	
 	
 	//create or update
 	public String CreateOrUpate(Flower flower) {

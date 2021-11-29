@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import shop.entity.Transaction;
+import shop.entity.User;
 
 @Transactional
 @Service("transactionDao")
@@ -34,6 +35,26 @@ public class TransactionDAO {
 			System.out.println("error"+e.getMessage());
 		}
 		return new ArrayList<>();
+	}
 
+	// create or update
+	public boolean createOrUpdate(Transaction trans) {
+		
+		Session session = factory.openSession();
+		org.hibernate.Transaction t = session.beginTransaction();
+		try {
+			session.saveOrUpdate(trans);
+			t.commit();
+			System.out.print("Create or Update Success");
+			return true;
+
+		} catch (Exception e) {
+			System.out.print(e.getMessage());
+			t.rollback();
+			return false;
+		} finally {
+			session.close();
+		}
+		
 	}
 }

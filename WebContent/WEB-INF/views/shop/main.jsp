@@ -104,7 +104,9 @@
                                             <img src="${pageContext.request.contextPath}/resources/images/flower/${flo.image}" alt="" class="product-image-1 w-100">
                                             <img src="${pageContext.request.contextPath}/resources/images/flower/2.jpg" alt="" class="product-image-2 position-absolute w-100">
                                         </a>
-                                        <span class="onsale">Sale!</span>
+					                    <c:if test="${flo.discount!=0 && flo.discount!=null }">
+					                    	<span class="onsale">-${flo.discount}%</span>
+					                    </c:if>
                                         <div class="add-action d-flex flex-column position-absolute">
                                             <a title="Compare">
                                                 <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="left" title="Compare"></i>
@@ -125,12 +127,19 @@
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star"></i>
                                             <i class="fa fa-star-o"></i>
                                         </div>
                                         <div class="price-box">
-                                            <span class="regular-price ">$60.00</span>
-                                            <span class="old-price"><del>${flo.price}</del></span>
+                                        	<c:if test="${flo.discount==0 || flo.discount==null }">
+						                    	<span class="regular-price "><fmt:formatNumber  pattern="###,### VND" value="${flo.price}" type="currency" /></span>
+						                    </c:if>
+						                    <c:if test="${flo.discount!=0 && flo.discount!=null }">
+						                    	<span class="regular-price "><fmt:formatNumber pattern="###,### VND"  value="${flo.price - (flo.price*flo.discount)/100 }" type="currency" /> </span>
+						                    	<del><span class="old-price"><fmt:formatNumber pattern="###,### VND"  value="${flo.price}" type="currency" /></span></del>
+						                    </c:if>
+                                            <%-- <span class="regular-price " pattern="###,### VND">${flo.price-flo.price*flo.discount}</span>
+                                            <span class="old-price" pattern="###,### VND"><del>${flo.price}</del></span> --%>
                                         </div>
                                         <a href="${pageContext.request.contextPath}/shop/cart/insert/${flo.id}.htm" class="btn product-cart">Add to Cart</a>
                                     </div>
@@ -142,12 +151,17 @@
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star"></i>
                                             <i class="fa fa-star-o"></i>
                                         </div>
                                         <div class="price-box">
-                                            <span class="regular-price ">$60.00</span>
-                                            <span class="old-price"><del>${flo.price}</del></span>
+                                            <c:if test="${flo.discount==0 || flo.discount==null }">
+						                    	<span class="regular-price "><fmt:formatNumber  pattern="###,### VND" value="${flo.price}" type="currency" /></span>
+						                    </c:if>
+						                    <c:if test="${flo.discount!=0 && flo.discount!=null }">
+						                    	<span class="regular-price "><fmt:formatNumber pattern="###,### VND"  value="${flo.price - (flo.price*flo.discount)/100 }" type="currency" /> </span>
+						                    	<del><span class="old-price"><fmt:formatNumber pattern="###,### VND"  value="${flo.price}" type="currency" /></span></del>
+						                    </c:if>
                                         </div>
                                         <p class="desc-content">${flo.contents}</p>
                                         <div class="button-listview">
@@ -184,19 +198,25 @@
 					                            </div>
 					                            <div class="col-md-6 col-custom">
 					                                <div class="modal-product">
+					                                 <form:form method="GET">
 					                                    <div class="product-content">
 					                                        <div class="product-title">
 					                                            <h4 class="title">${flo.name}</h4>
 					                                        </div>
 					                                        <div class="price-box">
-					                                            <span class="regular-price ">$80.00</span>
-					                                            <span class="old-price"><del>${flo.price}</del></span>
+					                                            <c:if test="${flo.discount==0 || flo.discount==null }">
+											                    	<span class="regular-price "><fmt:formatNumber  pattern="###,### VND" value="${flo.price}" type="currency" /></span>
+											                    </c:if>
+											                    <c:if test="${flo.discount!=0 && flo.discount!=null }">
+											                    	<span class="regular-price "><fmt:formatNumber pattern="###,### VND"  value="${flo.price - (flo.price*flo.discount)/100 }" type="currency" /> </span>
+											                    	<del><span class="old-price"><fmt:formatNumber pattern="###,### VND"  value="${flo.price}" type="currency" /></span></del>
+											                    </c:if>
 					                                        </div>
 					                                        <div class="product-rating">
 					                                            <i class="fa fa-star"></i>
 					                                            <i class="fa fa-star"></i>
 					                                            <i class="fa fa-star"></i>
-					                                            <i class="fa fa-star-o"></i>
+					                                            <i class="fa fa-star"></i>
 					                                            <i class="fa fa-star-o"></i>
 					                                            <span> ${flo.views} views</span>
 					                                        </div>
@@ -215,7 +235,7 @@
 					                                        <div class="quantity-with-btn">
 					                                            <div class="quantity">
 					                                                <div class="cart-plus-minus">
-					                                                    <input class="cart-plus-minus-box" value="0" type="text">
+					                                                    <input class="cart-plus-minus-box" value="1" name="qtt" type="text">
 					                                                    <div class="dec qtybutton">-</div>
 					                                                    <div class="inc qtybutton">+</div>
 					                                                    <div class="dec qtybutton"><i class="fa fa-minus"></i></div>
@@ -223,11 +243,13 @@
 					                                                </div>
 					                                            </div>
 					                                            <div class="add-to_btn">
-					                                                <a class="btn product-cart button-icon flosun-button dark-btn" href="${pageContext.request.contextPath}/shop/cart/insert/${flo.id}.htm">Add to cart</a>
-					                                                <a class="btn flosun-button secondary-btn rounded-0" href="wishlist.html">Add to wishlist</a>
+					                                                <%-- <a class="btn product-cart button-icon flosun-button dark-btn" href="${pageContext.request.contextPath}/shop/cart/insert/${flo.id}.htm">Add to cart</a> --%>
+					                                                 <input class="btn flosun-button primary-btn rounded-0 black-btn" type="submit" formaction="${pageContext.request.contextPath}/shop/cart/insert/${flo.id}.htm" value="Add to cart">
+					                                                <a class="btn flosun-button secondary-btn rounded-0">Add to wishlist</a>
 					                                            </div>
 					                                        </div>
 					                                    </div>
+					                                  </form:form>
 					                                </div>
 					                            </div>
 					                        </div>

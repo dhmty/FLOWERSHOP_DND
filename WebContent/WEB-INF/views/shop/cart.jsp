@@ -88,8 +88,8 @@
                              <c:forEach var="cart" items="${carts}">
                                 <tr>
                                     <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/flower/${cart.flower.image}" alt="Product" /></a></td>
-                                    <td class="pro-title"><a href="#">${cart.flower.name}<br> s / green</a></td>
-                                    <td class="pro-price"><span>${cart.amount}</span></td>
+                                    <td class="pro-title"><a href="#">${cart.flower.name}</a></td>
+                                    <td class="pro-price"><span><fmt:formatNumber pattern="###,### VND"  value="${cart.amount}" type="currency" /></span></td>
                                     <td class="pro-quantity">
                                         <div class="quantity">
                                             <div class="cart-plus-minus">
@@ -101,7 +101,7 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="pro-subtotal"><span>${cart.amount*cart.quantity}</span></td>
+                                    <td class="pro-subtotal"><span><fmt:formatNumber pattern="###,### VND"  value="${cart.amount*cart.quantity}" type="currency" /></span></td>
                                     <td class="pro-remove"><a href="${pageContext.request.contextPath}/shop/cart/delete/${cart.id}.htm"><i class="lnr lnr-trash"></i></a></td>
                                 </tr>
                               </c:forEach>
@@ -110,12 +110,12 @@
                     </div>
                     <!-- Cart Update Option -->
                     <div class="cart-update-option d-block d-md-flex justify-content-between">
-                        <%-- <div class="apply-coupon-wrapper">
+                        <div class="apply-coupon-wrapper">
                             <form action="#" method="post" class=" d-block d-md-flex">
-                                <input type="text" placeholder="Enter Your Coupon Code" />
+                                <input type="text" placeholder="Enter Your Coupon Code" required/>
                                 <button class="btn flosun-button primary-btn rounded-0 black-btn">Apply Coupon</button>
                             </form>
-                        </div> --%>
+                        </div> 
                         <div class="cart-update mt-sm-16">
                            <%--  <a href="${pageContext.request.contextPath}/shop/cart/update.htm" type="submit" class="btn flosun-button primary-btn rounded-0 black-btn">Update Cart</a> --%>
                             <input class="btn flosun-button primary-btn rounded-0 black-btn" type="submit" formaction="${pageContext.request.contextPath}/shop/cart/update.htm" value="Update Cart">
@@ -134,20 +134,20 @@
                                 <table class="table">
                                     <tr>
                                         <td>Sub Total</td>
-                                        <td>$230</td>
+                                        <td><span class="amount"><fmt:formatNumber pattern="###,### VND"  value="${subTotal}" type="currency" /></span></td>
                                     </tr>
                                     <tr>
                                         <td>Shipping</td>
-                                        <td>$70</td>
+                                        <td><span class="amount"><fmt:formatNumber pattern="###,### VND"  value="${ship}" type="currency" /></span></td>
                                     </tr>
                                     <tr class="total">
                                         <td>Total</td>
-                                        <td class="total-amount">$300</td>
+                                        <td class="total-amount"><span class="amount"><fmt:formatNumber pattern="###,### VND"  value="${subTotal+ship}" type="currency" /></span></td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
-                        <a href="checkout.html" class="btn flosun-button primary-btn rounded-0 black-btn w-100">Proceed To Checkout</a>
+                        <a href="${pageContext.request.contextPath}/shop/checkout.htm" class="btn flosun-button primary-btn rounded-0 black-btn w-100">Proceed To Checkout</a>
                     </div>
                 </div>
             </div>

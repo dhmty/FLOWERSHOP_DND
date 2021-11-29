@@ -38,6 +38,10 @@
 		
 	</bean>
 	
+	<bean id="uploadfile" class="shop.bean.UploadFile" >
+ 		<property name="basePath" value="D:\\LEARN IN SCHOOL\\Nam4Ki1\\JAVA_WEB\\FLOWERSHOP_DND\\WebContent\\resources\\images" />
+ 	</bean>
+	
 	<!-- Transaction Manager -->
     <bean id="transactionManager" 
     		class="org.springframework.orm.hibernate4.HibernateTransactionManager" 

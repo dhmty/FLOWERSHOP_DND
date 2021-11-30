@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="fmt" %>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
@@ -120,75 +122,58 @@
                     <div class="col-lg-2 col-md-6 col-6 col-custom">
                         <div class="header-right-area main-nav">
                             <ul class="nav">
+                            	<!-- Cart navbar -->
                                 <li class="minicart-wrap">
-                                    <a href="#" class="minicart-btn toolbar-btn">
+	                            	<c:if test="${userLogin==null}">
+					                    <a href="${pageContext.request.contextPath}/pages/login.htm" class="minicart-btn toolbar-btn">
                                         <i class="fa fa-shopping-cart"></i>
-                                        <span class="cart-item_count">3</span>
+                                        <!-- <span class="cart-item_count"></span> -->
                                     </a>
-                                    <div class="cart-item-wrapper dropdown-sidemenu dropdown-hover-2">
-                                        <div class="single-cart-item">
-                                            <div class="cart-img">
-                                                <a href="cart.html"><img src="assets/images/cart/1.jpg" alt=""></a>
-                                            </div>
-                                            <div class="cart-text">
-                                                <h5 class="title"><a href="cart.html">Odio tortor consequat</a></h5>
-                                                <div class="cart-text-btn">
-                                                    <div class="cart-qty">
-                                                        <span>1×</span>
-                                                        <span class="cart-price">$98.00</span>
-                                                    </div>
-                                                    <button type="button"><i class="ion-trash-b"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="single-cart-item">
-                                            <div class="cart-img">
-                                                <a href="cart.html"><img src="assets/images/cart/2.jpg" alt=""></a>
-                                            </div>
-                                            <div class="cart-text">
-                                                <h5 class="title"><a href="cart.html">Integer eget augue</a></h5>
-                                                <div class="cart-text-btn">
-                                                    <div class="cart-qty">
-                                                        <span>1×</span>
-                                                        <span class="cart-price">$98.00</span>
-                                                    </div>
-                                                    <button type="button"><i class="ion-trash-b"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="single-cart-item">
-                                            <div class="cart-img">
-                                                <a href="cart.html"><img src="assets/images/cart/3.jpg" alt=""></a>
-                                            </div>
-                                            <div class="cart-text">
-                                                <h5 class="title"><a href="cart.html">Eleifend quam</a></h5>
-                                                <div class="cart-text-btn">
-                                                    <div class="cart-qty">
-                                                        <span>1×</span>
-                                                        <span class="cart-price">$98.00</span>
-                                                    </div>
-                                                    <button type="button"><i class="ion-trash-b"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="cart-price-total d-flex justify-content-between">
-                                            <h5>Total :</h5>
-                                            <h5>$166.00</h5>
-                                        </div>
-                                        <div class="cart-links d-flex justify-content-between">
-                                            <a class="btn product-cart button-icon flosun-button dark-btn" href="cart.html">View cart</a>
-                                            <a class="btn flosun-button secondary-btn rounded-0" href="checkout.html">Checkout</a>
-                                        </div>
-                                    </div>
+					                </c:if>
+	                                <c:if test="${userLogin!=null}">
+	                                    <a href="#" class="minicart-btn toolbar-btn">
+	                                        <i class="fa fa-shopping-cart"></i>
+	                                        <span class="cart-item_count">${sizelistCarts}</span>
+	                                    </a>
+	                                    <div class="cart-item-wrapper dropdown-sidemenu dropdown-hover-2">
+	                                        
+	                                        <c:forEach var="cart" items="${listCarts}">
+	                                        <div class="single-cart-item">
+	                                            <div class="cart-img">
+	                                                <a href="${pageContext.request.contextPath}/shop/cart.htm"><img src="${pageContext.request.contextPath}/resources/images/flower/${cart.flower.image}" alt=""></a>
+	                                            </div>
+	                                            <div class="cart-text">
+	                                                <h5 class="title"><a href="${pageContext.request.contextPath}/shop/cart.htm">${cart.flower.name}</a></h5>
+	                                                <div class="cart-text-btn">
+	                                                    <div class="cart-qty">
+	                                                        <span>${cart.quantity}×</span>
+	                                                        <span class="cart-price"><fmt:formatNumber pattern="###,### VND"  value="${cart.amount}" type="currency" /></span>
+	                                                    </div>
+	                                                    <button type="button"><i class="ion-trash-b"></i></button>
+	                                                </div>
+	                                            </div>
+	                                        </div>
+	                                        </c:forEach>
+	                                        <div class="cart-price-total d-flex justify-content-between">
+	                                            <h5>Total (No Shipping) :</h5>
+	                                            <h5><fmt:formatNumber pattern="###,### VND"  value="${totalCarts}" type="currency" /></h5>
+	                                        </div>
+	                                        <div class="cart-links d-flex justify-content-between">
+	                                            <a class="btn product-cart button-icon flosun-button dark-btn" href="${pageContext.request.contextPath}/shop/cart.htm">View cart</a>
+	                                            <a class="btn flosun-button secondary-btn rounded-0" href="${pageContext.request.contextPath}/shop/checkout.htm">Checkout</a>
+	                                        </div>
+	                                    </div>
+					                </c:if>
                                 </li>
+                                <!-- search -->
                                 <li class="sidemenu-wrap">
                                     <a><i class="fa fa-search"></i> </a>
                                     <ul class="dropdown-sidemenu dropdown-hover-2 dropdown-search">
                                         <li>
-                                            <form action="#">
+                                            <form:form action="${pageContext.request.contextPath}/shop/search.htm">
                                                 <input name="search" id="search" placeholder="Search" type="text">
                                                 <button type="submit"><i class="fa fa-search"></i></button>
-                                            </form>
+                                            </form:form>
                                         </li>
                                     </ul>
                                 </li>

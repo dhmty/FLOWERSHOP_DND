@@ -1,6 +1,8 @@
 package shop.controller;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,14 +55,32 @@ public class ShopController {
 		return "shop/main";
 	}
 	
+	@RequestMapping("search")
+	public String index1(ModelMap model,HttpServletRequest request) {
+		
+		String text=request.getParameter("search");
+		System.out.println(text);
+		List<Flower> list=flowerDao.getFlowerByName(text);
+		model.addAttribute("flowers",list);
+		return "shop/main";
+	}
+	
 	
 	// cart
 	@RequestMapping(value="cart",method = RequestMethod.GET)
 	public String cart(ModelMap model,HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("userLogin");
-		
+		if (user==null) {
+			return "redirect:/pages/error.htm";
+		}
 		List<ShopCart> list=cartDao.getCartByUser(user.getId());
+		// đồng bộ cập nhật giỏ hàng
+		for (ShopCart cart:list) {
+			Flower flo=cart.getFlower();
+			BigDecimal sale=(flo.getPrice().multiply(BigDecimal.valueOf(flo.getDiscount()))).divide(BigDecimal.valueOf(100));
+			cart.setAmount(flo.getPrice().add(sale.multiply(BigDecimal.valueOf(-1))));
+		}
 		
 		model.addAttribute("subTotal",ShopService.subTotal(list));
 		model.addAttribute("ship", ShopService.ship(list));
@@ -78,12 +98,21 @@ public class ShopController {
 		if (request.getParameter("qtt")==null) sl=1;
 		else sl = Integer.parseInt(request.getParameter("qtt"));
 		
-		Flower flo= flowerDao.getFlowerById(floId);
-		if (flo.getDiscount()==null) flo.setDiscount(0);
-		//thêm vào db - chú ý tiền sau khi đã giảm giá
-		BigDecimal sale=(flo.getPrice().multiply(BigDecimal.valueOf(flo.getDiscount()))).divide(BigDecimal.valueOf(100));
-		ShopCart cart=new ShopCart(0,sl,flo.getPrice().add(sale.multiply(BigDecimal.valueOf(-1))),false,user,flo);
-		cartDao.createOrUpdate(cart);
+		// xử lý trùng cart 
+		ShopCart cartCopy=cartDao.getCartByUserFlo(user.getId(), floId);
+		if (cartCopy!=null) {
+			cartCopy.setQuantity(cartCopy.getQuantity()+sl);
+			System.out.println(sl+" - "+cartCopy.getQuantity());
+			cartDao.createOrUpdate(cartCopy);
+		}
+		else {
+			Flower flo= flowerDao.getFlowerById(floId);
+			if (flo.getDiscount()==null) flo.setDiscount(0);
+			//thêm vào db - chú ý tiền sau khi đã giảm giá
+			BigDecimal sale=(flo.getPrice().multiply(BigDecimal.valueOf(flo.getDiscount()))).divide(BigDecimal.valueOf(100));
+			ShopCart cart=new ShopCart(0,sl,flo.getPrice().add(sale.multiply(BigDecimal.valueOf(-1))),false,user,flo);
+			cartDao.createOrUpdate(cart);
+		}
 		return "redirect:/shop/cart.htm";
 	}
 	
@@ -109,8 +138,12 @@ public class ShopController {
 	}
 	
 	
-	@RequestMapping("product_detail")
-	public String product_detail() {
+	
+	// product_detail
+	@RequestMapping(value="product_detail/{floId}",method = RequestMethod.GET)
+	public String product_detail(ModelMap model, @PathVariable("floId") int floId) {
+		Flower flo=flowerDao.getFlowerById(floId);
+		model.addAttribute("flower", flo);
 		return "shop/product_detail";
 	}
 	
@@ -127,6 +160,8 @@ public class ShopController {
 		model.addAttribute("subTotal",ShopService.subTotal(list));
 		model.addAttribute("ship", ShopService.ship(list));
 		model.addAttribute("detailTransaction", new Transaction());
+		String message="Do you want to ship to a different address? Edit form below.";
+		model.addAttribute("message", message);
 		return "shop/checkout";
 	}
 	
@@ -134,29 +169,37 @@ public class ShopController {
 	public String checkoutSave(ModelMap model, HttpServletRequest request,@Validated @ModelAttribute("detailTransaction") Transaction trans,
 			BindingResult errors) {
 		// test các rằng buộc
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("userLogin");
+		List<ShopCart> list=cartDao.getCartByUser(user.getId());
 		
 		if (errors.hasErrors()) {
+			model.addAttribute("carts",list);
+			model.addAttribute("subTotal",ShopService.subTotal(list));
+			model.addAttribute("ship", ShopService.ship(list));
+			String message="Do you want to ship to a different address? Edit form below.";
+			model.addAttribute("message", message);
 			return "shop/checkout";
 		}
 		else {
-			
 			// update trạng thái các cart
 			// lưu vào bảng Trans
 			// lưu vào bảng Order
-	
-			HttpSession session = request.getSession();
-			User user = (User) session.getAttribute("userLogin");
-			List<ShopCart> list=cartDao.getCartByUser(user.getId());
 			boolean k=true;
+			boolean kt=false;
 			
-			trans.setStatus(false);
-			trans.setUser(user);
-			trans.setAmount(ShopService.subTotal(list).add(ShopService.ship(list)));
-			trans.setCreated(null);
-			boolean kt=transactionDao.createOrUpdate(trans);
+			if (list.size()!=0) {
+				trans.setStatus(false);
+				trans.setUser(user);
+				trans.setAmount(ShopService.subTotal(list).add(ShopService.ship(list)));
+				trans.setCreated(null);
+				kt=transactionDao.createOrUpdate(trans);
+			}
 			if (kt) {
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
 				for(ShopCart cart : list) {
-					Order order=new Order(0, cart.getQuantity(), cart.getAmount(), null, false, trans,cart.getFlower());
+				    LocalDateTime now = LocalDateTime.now();  
+					Order order=new Order(0, cart.getQuantity(), cart.getAmount(), dtf.format(now), false, trans,cart.getFlower());
 					boolean kt2=orderDao.createOrUpdate(order);
 					if (kt2) cart.setStatus(true);
 					else k=false;
@@ -164,11 +207,29 @@ public class ShopController {
 			}
 			
 			String message="";
-			if ( !k || !kt ) message="Place Order failed, Send Message to DND FlowerShop";
+			if ( !k || !kt ) message="Place Order failed, Check your Cart or Send Message to DND FlowerShop";
 			else message="Place Order Success, Return shop to continue buy";
 			model.addAttribute("message", message);
 			
 			return "shop/checkout";
 		}
+	}
+	
+	@Autowired
+	ModelController mc;
+	
+	@ModelAttribute("listCarts")
+	public List<ShopCart> dem(HttpServletRequest request) {
+		return mc.dem(request);
+	}
+	
+	@ModelAttribute("sizelistCarts")
+	public int size(HttpServletRequest request) {
+		return mc.size(request);
+	}
+	
+	@ModelAttribute("totalCarts")
+	public BigDecimal total(HttpServletRequest request) {
+		return mc.total(request);
 	}
 }

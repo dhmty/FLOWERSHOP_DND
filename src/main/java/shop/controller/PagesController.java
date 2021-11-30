@@ -1,8 +1,13 @@
 package shop.controller;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +17,20 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import shop.bean.Mailer;
+import shop.dao.OrderDAO;
+import shop.dao.TransactionDAO;
 import shop.dao.UserDAO;
+import shop.entity.Order;
+import shop.entity.ShopCart;
+import shop.entity.Transaction;
 import shop.entity.User;
+import shop.service.ShopService;
 
 @Transactional
 @Controller
@@ -27,6 +39,12 @@ public class PagesController {
 	
 	@Autowired
 	UserDAO userDao;
+	
+	@Autowired
+	TransactionDAO transactionDao;
+	
+	@Autowired
+	OrderDAO orderDao;
 	
 	@Autowired
 	Mailer mailer;
@@ -71,7 +89,7 @@ public class PagesController {
 				User _user = userDao.login(user.getEmail(), user.getPassword());
 				System.out.println("fullname...." + _user.getName());
 				session.setAttribute("userLogin", _user);
-				return "pages/my_account";
+				return "redirect:/pages/my_account.htm";
 			}
 		}
 
@@ -81,16 +99,16 @@ public class PagesController {
 	@RequestMapping("logout")
 	public String logout(HttpSession session) {
 		// remove all session
-//
-//			FilmSession _film_Session = (FilmSession) session.getAttribute("listFilm");
-//			if (_film_Session != null) {
-//				session.removeAttribute("listFilm");
-//			}
 
 		User user = (User) session.getAttribute("userLogin");
 		if (user != null) {
 			session.removeAttribute("userLogin");
 		}
+		
+//		List<ShopCart> list = (List<ShopCart>) session.getAttribute("listCarts");
+//		if (list != null) {
+//			session.removeAttribute("listCarts");
+//		}
 
 //			// show film by day
 //			String day = (String) session.getAttribute("chooseDay");
@@ -185,11 +203,55 @@ public class PagesController {
 			}
 	}
 	
-	
-	@RequestMapping("my_account")
-	public String my_account() {
+	// my Account
+	@RequestMapping(value="my_account",method = RequestMethod.GET)
+	public String my_account(ModelMap model,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("userLogin");
+		
+		List<Transaction> Trans=transactionDao.getListTransByUser(user.getId());
+		model.addAttribute("Trans", Trans);
 		return "pages/my_account";
 	}
+	
+	@RequestMapping(value="my_account/userOrders/{idTrans}",method = RequestMethod.GET)
+	public String userOrders(ModelMap model,@PathVariable("idTrans") int idTrans) {
+		
+		List<Order> orders=orderDao.getListOrderByTrans(idTrans);
+		Transaction trans=transactionDao.getTransById(idTrans);
+		
+		model.addAttribute("subTotal1",ShopService.subTotal1(orders));
+		model.addAttribute("ship1",ShopService.ship1(orders));
+		model.addAttribute("trans", trans);
+		model.addAttribute("orders", orders);
+		return "pages/userOrders";
+	}
+	
+	@RequestMapping(value="my_account/userOrders/update/{orderId}",method = RequestMethod.GET)
+	public String updateOrders(ModelMap model,@PathVariable("orderId") int orderId) {
+		
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"); 
+		LocalDateTime now = LocalDateTime.now();  
+		Order order=orderDao.getOrderById(orderId);
+		order.setStatus(true);
+		order.setNote(order.getNote()+" - update status: "+dtf.format(now));
+		orderDao.createOrUpdate(order);
+		
+		int idTrans=order.getTransaction().getId();
+		List<Order> orders=orderDao.getListOrderByTrans(idTrans);
+		// xét điều kiện cập nhật Transaction
+		if (ShopService.checkUpdateTrans(orders)) {
+			Transaction trans=transactionDao.getTransById(idTrans);
+			trans.setStatus(true);
+			transactionDao.createOrUpdate(trans);
+		}
+		
+		model.addAttribute("orders", orders);
+		return "redirect:/pages/my_account/userOrders/"+idTrans+".htm";
+	}
+	
+	
+	
 	
 	@RequestMapping("error")
 	public String error() {
@@ -254,4 +316,24 @@ public class PagesController {
 	}
 	
 	
+	
+	// set các Model Atribute chung 
+	
+	@Autowired
+	ModelController mc;
+	
+	@ModelAttribute("listCarts")
+	public List<ShopCart> dem(HttpServletRequest request) {
+		return mc.dem(request);
+	}
+	
+	@ModelAttribute("sizelistCarts")
+	public int size(HttpServletRequest request) {
+		return mc.size(request);
+	}
+	
+	@ModelAttribute("totalCarts")
+	public BigDecimal total(HttpServletRequest request) {
+		return mc.total(request);
+	}
 }

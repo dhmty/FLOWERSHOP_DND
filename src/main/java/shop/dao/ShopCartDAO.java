@@ -56,6 +56,25 @@ public class ShopCartDAO {
 		
 	}
 	
+	// check exist shopCart with status=false
+	public ShopCart getCartByUserFlo(int userId,int floId) {
+		Session session = factory.getCurrentSession();
+		try {
+			String sql = "FROM ShopCart c where c.user.id=:userId and c.flower.id=:floId and c.status='false'";
+			Query query = session.createQuery(sql).setParameter("userId", userId);
+		    query.setParameter("floId", floId);
+			List<ShopCart> listCart = query.list();
+			System.out.println("ok");
+			return listCart.size() > 0 ? listCart.get(0) : null;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("error"+e.getMessage());
+		}
+		return null;
+		
+	}
+	
 	// create
 	public String createOrUpdate(ShopCart cart) {
 		

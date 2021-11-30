@@ -14,7 +14,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Pattern;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -24,9 +27,17 @@ public class Transaction {
 	@GeneratedValue
 	private int id;
 	private boolean status;
+	
+	@NotBlank(message = "Customer's Name cannot be blank")
 	private String customerName;
+	
+	@NotBlank(message = "Customer's Email cannot be blank")
+	@Email(message = "Email invalidate")
 	private String customerEmail;
+	@NotBlank(message = "Phone Number cannot be blank")
+	@Pattern(regexp = "^(0|\\+84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$",message = "PhoneNumber is not illegal")
 	private String customerPhone;
+	@NotBlank(message = "Customer's Address cannot be blank")
 	private String customerAddress;
 	private BigDecimal amount;
 	private String message;

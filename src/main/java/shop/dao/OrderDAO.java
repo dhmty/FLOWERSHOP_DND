@@ -35,8 +35,37 @@ public class OrderDAO {
 			System.out.println("error"+e.getMessage());
 		}
 		return new ArrayList<>();
-
 	}
+	
+	//get Order by Id
+	public Order getOrderById(int id) {
+		Order order = null;
+		Session session = factory.getCurrentSession();
+		try {
+			order = (Order) session.get(Order.class, id);
+		} catch (Exception e) {
+			System.out.print("errors" + e.getMessage());
+		}
+		return order;
+	}
+
+	
+	// get list Orders by Transaction
+		public List<Order> getListOrderByTrans(int idTrans) {
+			Session session = factory.getCurrentSession();
+			try {
+				String sql = "FROM Order o where o.transaction.id =:idTrans";
+				Query query = session.createQuery(sql).setParameter("idTrans", idTrans);
+				List<Order> listOrders = query.list();
+				System.out.println("ok");
+				return listOrders;
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("error"+e.getMessage());
+			}
+			return new ArrayList<>();
+		}
 	
 	// create or update
 		public boolean createOrUpdate(Order order) {

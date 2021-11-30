@@ -54,7 +54,7 @@
                     <div class="breadcrumb-content position-relative section-content">
                         <h3 class="title-3">Product Details</h3>
                         <ul>
-                            <li><a href="index.html">Home</a></li>
+                            <li><a href="${pageContext.request.contextPath}/home/index.htm">Home</a></li>
                             <li>Product Details</li>
                         </ul>
                     </div>
@@ -72,72 +72,78 @@
                         <div class="single-product-img swiper-container gallery-top popup-gallery">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide">
-                                    <a class="w-100" href="assets/images/product/large-size/1.jpg">
-                                        <img class="w-100" src="assets/images/product/large-size/1.jpg" alt="Product">
+                                    <a class="w-100" href="${pageContext.request.contextPath}/resources/images/flower/${flower.image}">
+                                        <img class="w-100" src="${pageContext.request.contextPath}/resources/images/flower/${flower.image}" alt="Product">
                                     </a>
                                 </div>
                                 <div class="swiper-slide">
-                                    <a class="w-100" href="assets/images/product/large-size/2.jpg">
-                                        <img class="w-100" src="assets/images/product/large-size/2.jpg" alt="Product">
+                                    <a class="w-100" href="${pageContext.request.contextPath}/resources/images/flower/${flower.image}">
+                                        <img class="w-100" src="${pageContext.request.contextPath}/resources/images/flower/${flower.image}" alt="Product">
                                     </a>
                                 </div>
                                 <div class="swiper-slide">
-                                    <a class="w-100" href="assets/images/product/large-size/3.jpg">
-                                        <img class="w-100" src="assets/images/product/large-size/3.jpg" alt="Product">
+                                    <a class="w-100" href="${pageContext.request.contextPath}/resources/images/flower/${flower.image}">
+                                        <img class="w-100" src="${pageContext.request.contextPath}/resources/images/flower/${flower.image}" alt="Product">
                                     </a>
                                 </div>
                                 <div class="swiper-slide">
-                                    <a class="w-100" href="assets/images/product/large-size/4.jpg">
-                                        <img class="w-100" src="assets/images/product/large-size/4.jpg" alt="Product">
+                                    <a class="w-100" href="${pageContext.request.contextPath}/resources/images/flower/${flower.image}">
+                                        <img class="w-100" src="${pageContext.request.contextPath}/resources/images/flower/${flower.image}" alt="Product">
                                     </a>
                                 </div>
                                 <div class="swiper-slide">
-                                    <a class="w-100" href="assets/images/product/large-size/5.jpg">
-                                        <img class="w-100" src="assets/images/product/large-size/5.jpg" alt="Product">
+                                    <a class="w-100" href="${pageContext.request.contextPath}/resources/images/flower/${flower.image}">
+                                        <img class="w-100" src="${pageContext.request.contextPath}/resources/images/flower/${flower.image}" alt="Product">
                                     </a>
                                 </div>
                                 <div class="swiper-slide">
-                                    <a class="w-100" href="assets/images/product/large-size/6.jpg">
-                                        <img class="w-100" src="assets/images/product/large-size/6.jpg" alt="Product">
+                                    <a class="w-100" href="${pageContext.request.contextPath}/resources/images/flower/${flower.image}">
+                                        <img class="w-100" src="${pageContext.request.contextPath}/resources/images/flower/${flower.image}" alt="Product">
                                     </a>
                                 </div>
                             </div>
                         </div>
-                        <div class="single-product-thumb swiper-container gallery-thumbs">
+                        <%-- <div class="single-product-thumb swiper-container gallery-thumbs">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide">
-                                    <img src="assets/images/product/small-size/1.jpg" alt="Product">
+                                    <img src="${pageContext.request.contextPath}/resources/images/flower/2.jpg" alt="Product">
                                 </div>
                                 <div class="swiper-slide">
-                                    <img src="assets/images/product/small-size/2.jpg" alt="Product">
+                                    <img src="${pageContext.request.contextPath}/resources/images/flower/2.jpg" alt="Product">
                                 </div>
                                 <div class="swiper-slide">
-                                    <img src="assets/images/product/small-size/3.jpg" alt="Product">
+                                    <img src="${pageContext.request.contextPath}/resources/images/flower/2.jpg" alt="Product">
                                 </div>
                                 <div class="swiper-slide">
-                                    <img src="assets/images/product/small-size/4.jpg" alt="Product">
+                                    <img src="${pageContext.request.contextPath}/resources/images/flower/2.jpg" alt="Product">
                                 </div>
                                 <div class="swiper-slide">
-                                    <img src="assets/images/product/small-size/5.jpg" alt="Product">
+                                    <img src="${pageContext.request.contextPath}/resources/images/flower/2.jpg" alt="Product">
                                 </div>
                                 <div class="swiper-slide">
-                                    <img src="assets/images/product/small-size/6.jpg" alt="Product">
+                                    <img src="${pageContext.request.contextPath}/resources/images/flower/2.jpg" alt="Product">
                                 </div>
                             </div>
                             <!-- Add Arrows -->
                             <div class="swiper-button-next swiper-button-white"><i class="lnr lnr-arrow-right"></i></div>
                             <div class="swiper-button-prev swiper-button-white"><i class="lnr lnr-arrow-left"></i></div>
-                        </div>
+                        </div> --%>
                     </div>
                 </div>
                 <div class="col-lg-7 col-custom">
                     <div class="product-summery position-relative">
+                      <form:form method="GET">
                         <div class="product-head mb-3">
-                            <h2 class="product-title">Sample product</h2>
+                            <h2 class="product-title">${flower.name}</h2>
                         </div>
                         <div class="price-box mb-2">
-                            <span class="regular-price">$80.00</span>
-                            <span class="old-price"><del>$90.00</del></span>
+                            <c:if test="${flower.discount==0 || flower.discount==null }">
+		                    	<span class="regular-price "><fmt:formatNumber  pattern="###,### VND" value="${flower.price}" type="currency" /></span>
+		                    </c:if>
+		                    <c:if test="${flower.discount!=0 && flower.discount!=null }">
+		                    	<span class="regular-price "><fmt:formatNumber pattern="###,### VND"  value="${flower.price - (flower.price*flower.discount)/100 }" type="currency" /> </span>
+		                    	<del><span class="old-price"><fmt:formatNumber pattern="###,### VND"  value="${flower.price}" type="currency" /></span></del>
+		                    </c:if>
                         </div>
                         <div class="product-rating mb-3">
                             <i class="fa fa-star"></i>
@@ -147,20 +153,25 @@
                             <i class="fa fa-star-o"></i>
                         </div>
                         <div class="sku mb-3">
-                            <span>SKU: 12345</span>
+                            <span>${flower.views} views</span>
                         </div>
-                        <p class="desc-content mb-5">I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.</p>
+                        <p class="desc-content mb-5">${flower.contents}</p>
                         <div class="quantity-with_btn mb-5">
                             <div class="quantity">
                                 <div class="cart-plus-minus">
-                                    <input class="cart-plus-minus-box" value="0" type="text">
+                                    <input class="cart-plus-minus-box" value="1" name="qtt" type="text">
                                     <div class="dec qtybutton">-</div>
                                     <div class="inc qtybutton">+</div>
                                 </div>
                             </div>
                             <div class="add-to_cart">
-                                <a class="btn product-cart button-icon flosun-button dark-btn" href="cart.html">Add to cart</a>
-                                <a class="btn flosun-button secondary-btn secondary-border rounded-0" href="wishlist.html">Add to wishlist</a>
+                                <c:if test="${userLogin==null}">
+	                                  <a class="btn product-cart button-icon flosun-button dark-btn" href="${pageContext.request.contextPath}/pages/login.htm">Add to cart</a>
+				                </c:if>
+	                            <c:if test="${userLogin!=null}">
+				                    <input class="btn flosun-button primary-btn rounded-0 black-btn" type="submit" formaction="${pageContext.request.contextPath}/shop/cart/insert/${flower.id}.htm" value="Add to cart">
+				                </c:if>
+                                <a class="btn flosun-button secondary-btn secondary-border rounded-0">Add to wishlist</a>
                             </div>
                         </div>
                         <div class="social-share mb-4">
@@ -171,8 +182,9 @@
                             <a href="#"><i class="fa fa-pinterest-square pinterest-color"></i></a>
                         </div>
                         <div class="payment">
-                            <a href="#"><img class="border" src="assets/images/payment/payment-icon.png" alt="Payment"></a>
+                            <a href="#"><img class="border" src="${pageContext.request.contextPath}/resources/assets/images/payment/payment-icon.jpg" alt="Payment"></a>
                         </div>
+                      </form:form>
                     </div>
                 </div>
             </div>
@@ -235,7 +247,7 @@
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star"></i>
                                                 <i class="fa fa-star-o"></i>
                                             </div>
                                         </div>

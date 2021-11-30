@@ -70,11 +70,11 @@
         	<div class="row">
                 <div class="col-12 col-custom">
                     <div class="coupon-accordion">
-                        <h3>Do you want to ship to a different address? Edit form below.</h3>
+                        <h3>${message}</h3>
                     </div>
                 </div>
             </div>
-            <form:form action="${pageContext.request.contextPath}/shop/checkout.htm" method="post" modelAttribute="detailTransaction">
+        <form:form action="${pageContext.request.contextPath}/shop/checkout.htm" method="post" modelAttribute="detailTransaction">
             <div class="row">
                 <div class="col-lg-6 col-12 col-custom">
                         <div class="checkbox-form">
@@ -145,11 +145,11 @@
                                 <tfoot>
                                     <tr class="cart-subtotal">
                                         <th>Cart Subtotal</th>
-                                        <td class="text-center"><span class="amount"><fmt:formatNumber pattern="###,### VND"  value="${subTotal}" type="currency" /></span></td>
+                                        <td class="text-center"><span class="amount" style="font-weight: 800;"><fmt:formatNumber pattern="###,### VND"  value="${subTotal}" type="currency" /></span></td>
                                     </tr>
                                     <tr class="cart-subtotal">
                                         <th>Shipping</th>
-                                        <td class="text-center"><span class="amount"><fmt:formatNumber pattern="###,### VND"  value="${ship}" type="currency" /></span></td>
+                                        <td class="text-center"><span class="amount" style="font-weight: 800;"><fmt:formatNumber pattern="###,### VND"  value="${ship}" type="currency" /></span></td>
                                     </tr>
                                     <tr class="order-total">
                                         <th>Order Total</th>

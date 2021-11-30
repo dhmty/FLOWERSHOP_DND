@@ -55,7 +55,7 @@
                     <div class="breadcrumb-content position-relative section-content">
                         <h3 class="title-3">My Account</h3>
                         <ul>
-                            <li><a href="index.html">Home</a></li>
+                            <li><a href="${pageContext.request.contextPath}/home/index.htm">Home</a></li>
                             <li>My Account</li>
                         </ul>
                     </div>
@@ -71,6 +71,13 @@
                 <div class="col-lg-12 col-custom">
                     <!-- My Account Page Start -->
                     <div class="myaccount-page-wrapper">
+                    	<div class="row">
+			                <div class="col-12 col-custom">
+			                    <div class="coupon-accordion">
+			                        <h3>${message} doan 123</h3>
+			                    </div>
+			                </div>
+			            </div>
                         <!-- My Account Tab Menu Start -->
                         <div class="row">
                             <div class="col-lg-3 col-md-4 col-custom">
@@ -78,10 +85,9 @@
                                     <a href="#dashboad" class="active" data-toggle="tab"><i class="fa fa-dashboard"></i>
                                         Dashboard</a>
                                     <a href="#orders" data-toggle="tab"><i class="fa fa-cart-arrow-down"></i> Orders</a>
-                                    <a href="#download" data-toggle="tab"><i class="fa fa-cloud-download"></i> Download</a>
                                     <a href="#payment-method" data-toggle="tab"><i class="fa fa-credit-card"></i> Payment Method</a>
-                                    <a href="#address-edit" data-toggle="tab"><i class="fa fa-map-marker"></i> address</a>
-                                    <a href="#account-info" data-toggle="tab"><i class="fa fa-user"></i> Account Details</a>
+                                    <a href="#account-edit" data-toggle="tab"><i class="fa fa-user"></i> Account Details</a>
+                                    <a href="#password" data-toggle="tab"><i class="fa fa-key"></i> Change Password</a>
                                     <a href="${pageContext.request.contextPath}/pages/logout.htm"><i class="fa fa-sign-out"></i> Logout</a>
                                 </div>
                             </div>
@@ -118,61 +124,20 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                      <c:forEach var="trans" items="${Trans}">
                                                         <tr>
-                                                            <td>1</td>
-                                                            <td>Aug 22, 2018</td>
-                                                            <td>Pending</td>
-                                                            <td>$3000</td>
-                                                            <td><a href="cart.html" class="btn flosun-button secondary-btn theme-color  rounded-0">View</a></td>
+                                                            <td>${trans.id}</td>
+                                                            <td><fmt:formatDate type = "both" value = "${trans.created}" /></td>
+                                                            <c:if test="${trans.status==true}">
+                                                            	<td>Approved</td>
+                                                            </c:if>
+                                                            <c:if test="${trans.status==false}">
+                                                            	<td>Pending</td>
+                                                            </c:if>
+                                                            <td><span class="amount"><fmt:formatNumber pattern="###,### VND"  value="${trans.amount}" type="currency" /></span></td>
+                                                            <td><a href="${pageContext.request.contextPath}/pages/my_account/userOrders/${trans.id}.htm" class="btn flosun-button secondary-btn theme-color  rounded-0">View</a></td>
                                                         </tr>
-                                                        <tr>
-                                                            <td>2</td>
-                                                            <td>July 22, 2018</td>
-                                                            <td>Approved</td>
-                                                            <td>$200</td>
-                                                            <td><a href="cart.html" class="btn flosun-button secondary-btn theme-color  rounded-0">View</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>3</td>
-                                                            <td>June 12, 2019</td>
-                                                            <td>On Hold</td>
-                                                            <td>$990</td>
-                                                            <td><a href="cart.html" class="btn flosun-button secondary-btn theme-color  rounded-0">View</a></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Single Tab Content End -->
-
-                                    <!-- Single Tab Content Start -->
-                                    <div class="tab-pane fade" id="download" role="tabpanel">
-                                        <div class="myaccount-content">
-                                            <h3>Downloads</h3>
-                                            <div class="myaccount-table table-responsive text-center">
-                                                <table class="table table-bordered">
-                                                    <thead class="thead-light">
-                                                        <tr>
-                                                            <th>Product</th>
-                                                            <th>Date</th>
-                                                            <th>Expire</th>
-                                                            <th>Download</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Haven - Free Real Estate PSD Template</td>
-                                                            <td>Aug 22, 2018</td>
-                                                            <td>Yes</td>
-                                                            <td><a href="#" class="btn flosun-button secondary-btn theme-color  rounded-0"><i class="fa fa-cloud-download mr-2"></i>Download File</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>HasTech - Profolio Business Template</td>
-                                                            <td>Sep 12, 2018</td>
-                                                            <td>Never</td>
-                                                            <td><a href="#" class="btn flosun-button secondary-btn theme-color  rounded-0"><i class="fa fa-cloud-download mr-2"></i>Download File</a></td>
-                                                        </tr>
+                                                      </c:forEach>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -190,50 +155,49 @@
                                     <!-- Single Tab Content End -->
 
                                     <!-- Single Tab Content Start -->
-                                    <div class="tab-pane fade" id="address-edit" role="tabpanel">
+                                    <div class="tab-pane fade" id="account-edit" role="tabpanel">
                                         <div class="myaccount-content">
-                                            <h3>Billing Address</h3>
-                                            <address>
-                                                <p><strong>Alex Aya</strong></p>
-                                                <p>1234 Market ##, Suite 900 <br>
-                                            Lorem Ipsum, ## 12345</p>
-                                                <p>Mobile: (123) 123-456789</p>
-                                            </address>
-                                            <a href="#" class="btn flosun-button secondary-btn theme-color  rounded-0"><i class="fa fa-edit mr-2"></i>Edit Address</a>
-                                        </div>
-                                    </div>
-                                    <!-- Single Tab Content End -->
-
-                                    <!-- Single Tab Content Start -->
-                                    <div class="tab-pane fade" id="account-info" role="tabpanel">
-                                        <div class="myaccount-content">
-                                            <h3>Account Details</h3>
+                                        	<h3>Account Details</h3>
                                             <div class="account-details-form">
                                                 <form action="#">
                                                     <div class="row">
                                                         <div class="col-lg-6 col-custom">
                                                             <div class="single-input-item mb-3">
-                                                                <label for="first-name" class="required mb-1">First Name</label>
-                                                                <input type="text" id="first-name" placeholder="First Name" />
+                                                                <label for="fullname" class="required mb-1">FullName</label>
+                                                                <input type="text" id="fullname" placeholder="Full Name" />
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6 col-custom">
                                                             <div class="single-input-item mb-3">
-                                                                <label for="last-name" class="required mb-1">Last Name</label>
-                                                                <input type="text" id="last-name" placeholder="Last Name" />
+                                                                <label for="phone" class="required mb-1">Phone</label>
+                                                                <input type="text" id="phone" placeholder="Phone" />
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="single-input-item mb-3">
-                                                        <label for="display-name" class="required mb-1">Display Name</label>
-                                                        <input type="text" id="display-name" placeholder="Display Name" />
+                                                        <label for="address" class="required mb-1">Address</label>
+                                                        <input type="text" id="address" placeholder="Address" />
                                                     </div>
                                                     <div class="single-input-item mb-3">
-                                                        <label for="email" class="required mb-1">Email Addres</label>
-                                                        <input type="email" id="email" placeholder="Email Address" />
+                                                        <label for="email" class="required mb-1">Email Address</label>
+                                                        <input type="text" id="email" placeholder="Email Address" />
                                                     </div>
+                                                    <div class="single-input-item single-item-button">
+                                                        <button class="btn flosun-button secondary-btn theme-color  rounded-0">Save Changes</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Single Tab Content End -->
+
+                                    <!-- Single Tab Content Start -->
+                                    <div class="tab-pane fade" id="password" role="tabpanel">
+                                        <div class="myaccount-content">
+                                            <h3>Password Change</h3>
+                                            <div class="account-details-form">
+                                                <form action="#">
                                                     <fieldset>
-                                                        <legend>Password change</legend>
                                                         <div class="single-input-item mb-3">
                                                             <label for="current-pwd" class="required mb-1">Current Password</label>
                                                             <input type="password" id="current-pwd" placeholder="Current Password" />

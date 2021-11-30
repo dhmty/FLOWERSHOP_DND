@@ -100,9 +100,9 @@
                             <div class="product-item">
                                 <div class="single-product position-relative mr-0 ml-0">
                                     <div class="product-image">
-                                        <a class="d-block" href="product-details.html">
+                                        <a class="d-block" href="${pageContext.request.contextPath}/shop/product_detail/${flo.id}.htm">
                                             <img src="${pageContext.request.contextPath}/resources/images/flower/${flo.image}" alt="" class="product-image-1 w-100">
-                                            <img src="${pageContext.request.contextPath}/resources/images/flower/2.jpg" alt="" class="product-image-2 position-absolute w-100">
+                                            <img src="${pageContext.request.contextPath}/resources/images/flower/${flo.image}" alt="" class="product-image-2 position-absolute w-100">
                                         </a>
 					                    <c:if test="${flo.discount!=0 && flo.discount!=null }">
 					                    	<span class="onsale">-${flo.discount}%</span>
@@ -121,7 +121,7 @@
                                     </div>
                                     <div class="product-content">
                                         <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">${flo.name}</a></h4>
+                                            <h4 class="title-2"> <a href="${pageContext.request.contextPath}/shop/product_detail/${flo.id}.htm">${flo.name}</a></h4>
                                         </div>
                                         <div class="product-rating">
                                             <i class="fa fa-star"></i>
@@ -141,11 +141,16 @@
                                             <%-- <span class="regular-price " pattern="###,### VND">${flo.price-flo.price*flo.discount}</span>
                                             <span class="old-price" pattern="###,### VND"><del>${flo.price}</del></span> --%>
                                         </div>
-                                        <a href="${pageContext.request.contextPath}/shop/cart/insert/${flo.id}.htm" class="btn product-cart">Add to Cart</a>
+                                        <c:if test="${userLogin==null}">
+						                    <a href="${pageContext.request.contextPath}/pages/login.htm" class="btn product-cart">Add to Cart</a>
+						                </c:if>
+                                        <c:if test="${userLogin!=null}">
+						                    <a href="${pageContext.request.contextPath}/shop/cart/insert/${flo.id}.htm" class="btn product-cart">Add to Cart</a>
+						                </c:if>
                                     </div>
                                     <div class="product-content-listview">
                                         <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">${flo.name}</a></h4>
+                                            <h4 class="title-2"> <a href="${pageContext.request.contextPath}/shop/product_detail/${flo.id}.htm">${flo.name}</a></h4>
                                         </div>
                                         <div class="product-rating">
                                             <i class="fa fa-star"></i>
@@ -165,7 +170,12 @@
                                         </div>
                                         <p class="desc-content">${flo.contents}</p>
                                         <div class="button-listview">
-                                            <a href="${pageContext.request.contextPath}/shop/cart/insert/${flo.id}.htm" class="btn product-cart button-icon flosun-button dark-btn" data-toggle="tooltip" data-placement="top" title="Add to Cart"> <span>Add to Cart</span> </a>
+                                            <c:if test="${userLogin==null}">
+						                    	<a href="${pageContext.request.contextPath}/pages/login.htm" class="btn product-cart button-icon flosun-button dark-btn" data-toggle="tooltip" data-placement="top" title="Add to Cart"> <span>Add to Cart</span> </a>
+						                	</c:if>
+                                        	<c:if test="${userLogin!=null}">
+						                    	<a href="${pageContext.request.contextPath}/shop/cart/insert/${flo.id}.htm" class="btn product-cart button-icon flosun-button dark-btn" data-toggle="tooltip" data-placement="top" title="Add to Cart"> <span>Add to Cart</span> </a>
+						                	</c:if>
                                             <a class="list-icon" title="Compare">
                                                 <i class="lnr lnr-sync" data-toggle="tooltip" data-placement="top" title="Compare"></i>
                                             </a>
@@ -243,8 +253,12 @@
 					                                                </div>
 					                                            </div>
 					                                            <div class="add-to_btn">
-					                                                <%-- <a class="btn product-cart button-icon flosun-button dark-btn" href="${pageContext.request.contextPath}/shop/cart/insert/${flo.id}.htm">Add to cart</a> --%>
-					                                                 <input class="btn flosun-button primary-btn rounded-0 black-btn" type="submit" formaction="${pageContext.request.contextPath}/shop/cart/insert/${flo.id}.htm" value="Add to cart">
+					                                                <c:if test="${userLogin==null}">
+					                                                    <a class="btn product-cart button-icon flosun-button dark-btn" href="${pageContext.request.contextPath}/pages/login.htm">Add to cart</a>
+													                </c:if>
+							                                        <c:if test="${userLogin!=null}">
+													                    <input class="btn flosun-button primary-btn rounded-0 black-btn" type="submit" formaction="${pageContext.request.contextPath}/shop/cart/insert/${flo.id}.htm" value="Add to cart">
+													                </c:if>
 					                                                <a class="btn flosun-button secondary-btn rounded-0">Add to wishlist</a>
 					                                            </div>
 					                                        </div>

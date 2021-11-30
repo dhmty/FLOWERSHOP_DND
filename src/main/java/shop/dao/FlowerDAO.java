@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import shop.entity.Flower;
+import shop.entity.ShopCart;
 
 @Transactional
 @Service("flowerDao")
@@ -49,6 +50,23 @@ public class FlowerDAO {
 		return flower;
 	}
 	
+	// get Flower by contains name
+	public List<Flower> getFlowerByName(String text) {
+		Session session = factory.getCurrentSession();
+		try {
+			String sql = "FROM Flower f where f.name like :text";
+			Query query = session.createQuery(sql).setParameter("text","%"+text+"%");
+			List<Flower> listFlo = query.list();
+			System.out.println("ok");
+			return listFlo;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("error"+e.getMessage());
+		}
+		return new ArrayList<>();
+	}
+	
 	
 	//create or update
 	public String CreateOrUpate(Flower flower) {
@@ -66,4 +84,5 @@ public class FlowerDAO {
 			session.close();
 		}
 	}
+	
 }

@@ -3,6 +3,7 @@ package shop.controller;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +29,7 @@ import shop.entity.Order;
 import shop.entity.ShopCart;
 import shop.entity.Transaction;
 import shop.entity.User;
+import shop.service.FlowerTwo;
 import shop.service.ShopService;
 
 @Transactional
@@ -133,6 +135,16 @@ public class ShopController {
 	
 	@RequestMapping(value="cart/delete/{id}",method = RequestMethod.GET)
 	public String cartDelete(ModelMap model,@PathVariable("id") int id, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("userLogin");
+		// check delete true user
+		ShopCart cart=cartDao.getCartById(id);
+		if (cart.getUser().getId() != user.getId()) {
+			System.out.print(user.getId());
+			return "pages/error404";
+		}
+		
 		cartDao.delete(id);
 		return "redirect:/shop/cart.htm";
 	}
@@ -232,4 +244,20 @@ public class ShopController {
 	public BigDecimal total(HttpServletRequest request) {
 		return mc.total(request);
 	}
+	
+	// show feature product
+	
+		@ModelAttribute("TopFlower")
+		public List<FlowerTwo> arrange() {
+			List<FlowerTwo> list=new ArrayList<FlowerTwo>();
+			
+			List<Flower> listFlo=mc.arrange(0,12);
+			
+			for (int i=0;i<listFlo.size()/2;i++) {
+				Flower f1=listFlo.get(i);
+				Flower f2=listFlo.get(i+6);
+				list.add(new FlowerTwo(f1,f2));
+			}
+			return list;
+		}
 }

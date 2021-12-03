@@ -68,6 +68,13 @@
     <!-- cart main wrapper start -->
     <div class="cart-main-wrapper mt-no-text">
         <div class="container custom-area">
+           <div class="row">
+                <div class="col-12 col-custom">
+                    <div class="coupon-accordion">
+                        <h3>Notice: Delete All In Cart -> Delete Order</h3>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-12 col-custom">
                     <!-- Cart Table Area -->
@@ -81,7 +88,7 @@
                                     <th class="pro-quantity">Quantity</th>
                                     <th class="pro-subtotal">Total</th>
                                     <th class="pro-remove">Status</th>
-                                    <th class="pro-remove">Update Status</th>
+                                    <th class="pro-remove">Approved/Remove</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -102,7 +109,11 @@
                                     </c:if>
                                     <c:if test="${order.status==false}">
                                     	<td>Pending</td>
-	                                    <td class="pro-remove"><a href="${pageContext.request.contextPath}/pages/my_account/userOrders/update/${order.id}.htm"><i class="lnr lnr-sync"></i></a></td>
+	                                    <td class="pro-remove">
+	                                    	<a href="${pageContext.request.contextPath}/pages/my_account/userOrders/update/${order.id}.htm"><i class="lnr lnr-sync"></i></a>
+	                                    	<span style="font-size: large;"> / </span>
+	                                    	<a href="${pageContext.request.contextPath}/pages/my_account/userOrders/delete/${order.id}.htm"><i class="lnr lnr-trash"></i></a>
+	                                    </td>
                                     </c:if>
                                 </tr>
                               </c:forEach>

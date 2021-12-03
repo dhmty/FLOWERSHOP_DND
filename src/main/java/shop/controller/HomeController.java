@@ -1,6 +1,7 @@
 package shop.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import shop.entity.Flower;
+import shop.service.FlowerTwo;
 import shop.entity.ShopCart;
 
 
@@ -45,5 +48,21 @@ public class HomeController {
 	public BigDecimal total(HttpServletRequest request) {
 		return mc.total(request);
 	}
+	
+	// show feature product
+	
+	@ModelAttribute("TopFlower")
+	public List<FlowerTwo> arrange() {
+		List<FlowerTwo> list=new ArrayList<FlowerTwo>();
+		
+		List<Flower> listFlo=mc.arrange(0,12);
+		
+		for (int i=0;i<listFlo.size()/2;i++) {
+			Flower f1=listFlo.get(i);
+			Flower f2=listFlo.get(i+6);
+			list.add(new FlowerTwo(f1,f2));
+		}
+		return list;
+	}
+	
 }
-

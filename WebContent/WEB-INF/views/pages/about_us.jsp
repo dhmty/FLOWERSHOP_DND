@@ -55,7 +55,7 @@
                     <div class="breadcrumb-content position-relative section-content">
                         <h3 class="title-3">About Us</h3>
                         <ul>
-                            <li><a href="index.html">Home</a></li>
+                            <li><a href="${pageContext.request.contextPath}/home/index.htm">Home</a></li>
                             <li>About Us</li>
                         </ul>
                     </div>
@@ -77,7 +77,7 @@
                         <div class="desc-content">
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
                         </div>
-                        <a href="shop.html" class="btn flosun-button secondary-btn rounded-0">Shop Collection</a>
+                        <a href="${pageContext.request.contextPath}/shop/man.htm" class="btn flosun-button secondary-btn rounded-0">Shop Collection</a>
                     </div>
                 </div>
                 <div class="col-md-6 col-custom">
@@ -85,7 +85,7 @@
                     <div class="single-banner hover-style">
                         <div class="banner-img">
                             <a href="#">
-                                <img src="assets/images/about/1.jpg" alt="About Image">
+                                <img src="${pageContext.request.contextPath}/resources/assets/images/about/1.jpg" alt="About Image">
                                 <div class="overlay-1"></div>
                             </a>
                         </div>
@@ -99,7 +99,7 @@
                     <div class="single-banner hover-style">
                         <div class="banner-img">
                             <a href="#">
-                                <img src="assets/images/about/2.jpg" alt="About Image">
+                                <img src="${pageContext.request.contextPath}/resources/assets/images/about/2.jpg" alt="About Image">
                                 <div class="overlay-1"></div>
                             </a>
                         </div>
@@ -115,7 +115,7 @@
                         <div class="desc-content">
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
                         </div>
-                        <a href="shop.html" class="btn flosun-button secondary-btn rounded-0">Shop Collection</a>
+                        <a href="${pageContext.request.contextPath}/shop/man.htm" class="btn flosun-button secondary-btn rounded-0">Shop Collection</a>
                     </div>
                 </div>
             </div>
@@ -139,8 +139,14 @@
                 <div class="row">
                     <div class="col-lg-8 ml-auto mr-auto">
                         <div class="history-area-content text-center border-0">
-                            <p><strong>Captain America: Civil War Christopher Markus and Stephen McFeely see the Hulk as the game over moment.</strong></p>
-                            <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus. Phasellus eu rhoncus dolor, vitae scelerisque sapien</p>
+                            <p><strong>DND Flower Shop: From Three Student of PTITHCM</strong></p>
+                            <p>Hoa là món quà vô giá mà thiên nhiên đã dành tặng cho con người. Mỗi loài hoa mang một vẻ đẹp và sắc thái riêng, chính vì vậy mà người thưởng hoa có thể gởi gắm tâm tư tình cảm của mình vào chậu hoa một cách tinh tế, ý nhị.
+							Bên cạnh đó, mỗi loài hoa còn mang một ý nghĩa đặc biệt, hiểu được nó sẽ giúp bạn tránh khỏi những bối rối không nói nên lời trước một tình yêu e ấp, trước một tình bạn bền lâu, một lòng biết ơn vô bờ bến đối với cha với mẹ, hay chỉ đơn giản là một lời cảm ơn sâu sắc, chân thành…
+							Shop Hoa DND sẽ là cầu nối để kết nối những tình cảm thân yêu của bạn, làm vững bền mối thâm giao bằng hữu tạo dựng đẳng cấp và phong cách khác biệt trong cuộc sống và công việc hay để chia ngọt sẻ bùi, gửi gắm tâm tư ...
+							Hãy liên hệ với chúng tôi, vạn sẽ hoàn toàn yên tâm để chúng tôi có thể thay bạn mang đến niềm vui cho những người thân yêu, bạn bè, đối tác,…của bạn. Cũng chỉ một thao tác bạn đã có một bó hoa đầy màu sắc cùng những thông điệp ngọt ngào dành tặng người thân, những người đặc biệt.
+							Đến với chúng tôi bạn sẽ thật sự an tâm với thái độ phục vụ nhiệt tình của đội ngũ nhân viên năng động, nhiệt tình và nhiều năm kinh nghiệm trong ngành, họ sẽ tư vấn cho quý khách hàng những bó hoa, những món quà phù hợp và ý nghĩa.
+							Hướng đến sự chuyên nghiệp trong tất cả các quy trình là công việc mà chúng tôi đặt lên hàng đầu nhằm đem lại sự hài lòng tốt nhất cho bạn.
+							</p>
                         </div>
                     </div>
                 </div>
@@ -155,7 +161,7 @@
                 <div class="col-lg-12 col-custom">
                     <div class="section-title text-center">
                         <span class="section-title-1">The guys behind the curtains</span>
-                        <h2 class="section-title-2">a team of highly-skilled experts</h2>
+                        <h2 class="section-title-2">a team of DND Flower Shop</h2>
                     </div>
                 </div>
             </div>
@@ -164,7 +170,7 @@
                     <div class="grid-item">
                         <div class="ht-team-member">
                             <div class="team-image">
-                                <img class="img-fluid" src="assets/images/team/1.jpg" alt="">
+                                <img class="img-fluid" src="${pageContext.request.contextPath}/resources/assets/images/team/1.jpg" alt="">
                                 <div class="social-networks">
                                     <div class="inner">
                                         <a href="#"><i class="fa fa-facebook"></i>
@@ -177,8 +183,8 @@
                                 </div>
                             </div>
                             <div class="team-info text-center">
-                                <h5 class="name">Dollie Horton </h5>
-                                <div class="position">Marketing</div>
+                                <h5 class="name">Đỗ Văn Nam </h5>
+                                <div class="position">N18DCCN128</div>
                             </div>
                         </div>
                     </div>
@@ -187,7 +193,7 @@
                     <div class="grid-item">
                         <div class="ht-team-member">
                             <div class="team-image">
-                                <img class="img-fluid" src="assets/images/team/2.jpg" alt="">
+                                <img class="img-fluid" src="${pageContext.request.contextPath}/resources/assets/images/team/2.jpg" alt="">
                                 <div class="social-networks">
                                     <div class="inner">
                                         <a href="#"><i class="fa fa-facebook"></i>
@@ -200,8 +206,8 @@
                                 </div>
                             </div>
                             <div class="team-info text-center">
-                                <h5 class="name">Stephen Mearsley </h5>
-                                <div class="position">President & CEO</div>
+                                <h5 class="name">Nguyễn Minh Đoan </h5>
+                                <div class="position">N18DCCN044</div>
                             </div>
                         </div>
                     </div>
@@ -210,7 +216,7 @@
                     <div class="grid-item">
                         <div class="ht-team-member">
                             <div class="team-image">
-                                <img class="img-fluid" src="assets/images/team/3.jpg" alt="">
+                                <img class="img-fluid" src="${pageContext.request.contextPath}/resources/assets/images/team/3.jpg" alt="">
                                 <div class="social-networks">
                                     <div class="inner">
                                         <a href="#"><i class="fa fa-facebook"></i>
@@ -223,8 +229,8 @@
                                 </div>
                             </div>
                             <div class="team-info text-center">
-                                <h5 class="name">Maggie Strickland </h5>
-                                <div class="position">Financial Services</div>
+                                <h5 class="name">Trần Anh Đức </h5>
+                                <div class="position">N18DCCN047</div>
                             </div>
                         </div>
                     </div>
@@ -242,27 +248,27 @@
                         <div class="swiper-wrapper">
                             <div class="single-brand swiper-slide">
                                 <a href="#">
-                                    <img src="assets/images/brand/1.png" alt="Brand Logo">
+                                    <img src="${pageContext.request.contextPath}/resources/assets/images/brand/1.png" alt="Brand Logo">
                                 </a>
                             </div>
                             <div class="single-brand swiper-slide">
                                 <a href="#">
-                                    <img src="assets/images/brand/2.png" alt="Brand Logo">
+                                    <img src="${pageContext.request.contextPath}/resources/assets/images/brand/2.png" alt="Brand Logo">
                                 </a>
                             </div>
                             <div class="single-brand swiper-slide">
                                 <a href="#">
-                                    <img src="assets/images/brand/3.png" alt="Brand Logo">
+                                    <img src="${pageContext.request.contextPath}/resources/assets/images/brand/3.png" alt="Brand Logo">
                                 </a>
                             </div>
                             <div class="single-brand swiper-slide">
                                 <a href="#">
-                                    <img src="assets/images/brand/4.png" alt="Brand Logo">
+                                    <img src="${pageContext.request.contextPath}/resources/assets/images/brand/4.png" alt="Brand Logo">
                                 </a>
                             </div>
                             <div class="single-brand swiper-slide">
                                 <a href="#">
-                                    <img src="assets/images/brand/5.png" alt="Brand Logo">
+                                    <img src="${pageContext.request.contextPath}/resources/assets/images/brand/5.png" alt="Brand Logo">
                                 </a>
                             </div>
                         </div>
@@ -275,39 +281,6 @@
         </div>
     </div>
     <!-- Brand Logo Area End Here -->
-    <!-- Newsletter Area Start Here -->
-    <div class="news-letter-area mt-text-6 pb-text-4">
-        <div class="container custom-area">
-            <div class="row align-items-center">
-                <!--Section Title Start-->
-                <div class="col-md-6 col-custom">
-                    <div class="section-title text-left mb-35">
-                        <h3 class="section-title-3">Send Newsletter</h3>
-                        <p class="desc-content mb-0">Enter Your Email Address For Our Mailing List To Keep Your Self Update</p>
-                    </div>
-                </div>
-                <!--Section Title End-->
-                <div class="col-md-6 col-custom">
-                    <div class="news-latter-box">
-                        <div class="newsletter-form-wrap text-center">
-                            <form id="mc-form" class="mc-form">
-                                <input type="email" id="mc-email" class="form-control email-box" placeholder="email@example.com" name="EMAIL">
-                                <button id="mc-submit" class="btn rounded-0" type="submit">Subscribe</button>
-                            </form>
-                            <!-- mailchimp-alerts Start -->
-                            <div class="mailchimp-alerts text-centre">
-                                <div class="mailchimp-submitting"></div><!-- mailchimp-submitting end -->
-                                <div class="mailchimp-success text-success"></div><!-- mailchimp-success end -->
-                                <div class="mailchimp-error text-danger"></div><!-- mailchimp-error end -->
-                            </div>
-                            <!-- mailchimp-alerts end -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Newsletter Area End Here -->
     
     
     

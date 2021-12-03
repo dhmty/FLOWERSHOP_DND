@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import shop.dao.OrderDAO;
 import shop.dao.ShopCartDAO;
 import shop.dao.TransactionDAO;
+import shop.entity.Flower;
 import shop.entity.Order;
 import shop.entity.ShopCart;
 import shop.entity.Transaction;

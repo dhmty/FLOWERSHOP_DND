@@ -56,6 +56,18 @@ public class ShopCartDAO {
 		
 	}
 	
+	//get cart by Id
+		public ShopCart getCartById(int id) {
+			ShopCart cart = null;
+			Session session = factory.getCurrentSession();
+			try {
+				cart = (ShopCart) session.get(ShopCart.class, id);
+			} catch (Exception e) {
+				System.out.print("errors" + e.getMessage());
+			}
+			return cart;
+		}
+
 	// check exist shopCart with status=false
 	public ShopCart getCartByUserFlo(int userId,int floId) {
 		Session session = factory.getCurrentSession();

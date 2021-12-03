@@ -1,8 +1,10 @@
 package shop.controller;
 
 import java.math.BigDecimal;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.Temporal;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -51,7 +53,10 @@ public class PagesController {
 	
 	
 	final String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
+	final String regPhone = "^(0|\\+84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$";
+
 	Pattern pattern = Pattern.compile(regex);
+	Pattern pattern1 = Pattern.compile(regPhone);
 	// Mapping jsp
 	
 	// login User
@@ -197,6 +202,7 @@ public class PagesController {
 					model.addAttribute("message","User's account with this Phone Number already exists");
 					return "pages/register";
 				} 
+				user.setPassword(user.getPassword().trim());
 				user.setAddress("");
 				userDao.createOrUpdate(user);
 				return "pages/login";
@@ -215,10 +221,20 @@ public class PagesController {
 	}
 	
 	@RequestMapping(value="my_account/userOrders/{idTrans}",method = RequestMethod.GET)
-	public String userOrders(ModelMap model,@PathVariable("idTrans") int idTrans) {
+	public String userOrders(ModelMap model,@PathVariable("idTrans") int idTrans,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("userLogin");
+		
 		
 		List<Order> orders=orderDao.getListOrderByTrans(idTrans);
 		Transaction trans=transactionDao.getTransById(idTrans);
+		
+		
+		if (trans.getUser().getId() != user.getId()) {
+			System.out.print(user.getId());
+			return "pages/error404";
+		}
+		
 		
 		model.addAttribute("subTotal1",ShopService.subTotal1(orders));
 		model.addAttribute("ship1",ShopService.ship1(orders));
@@ -228,11 +244,20 @@ public class PagesController {
 	}
 	
 	@RequestMapping(value="my_account/userOrders/update/{orderId}",method = RequestMethod.GET)
-	public String updateOrders(ModelMap model,@PathVariable("orderId") int orderId) {
+	public String updateOrders(ModelMap model,@PathVariable("orderId") int orderId,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("userLogin");
 		
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"); 
 		LocalDateTime now = LocalDateTime.now();  
 		Order order=orderDao.getOrderById(orderId);
+		
+		//check lỗi userLogin
+		if (order.getTransaction().getUser().getId() != user.getId()) {
+			System.out.print(user.getId());
+			return "pages/error404";
+		}
+		
 		order.setStatus(true);
 		order.setNote(order.getNote()+" - update status: "+dtf.format(now));
 		orderDao.createOrUpdate(order);
@@ -245,11 +270,146 @@ public class PagesController {
 			trans.setStatus(true);
 			transactionDao.createOrUpdate(trans);
 		}
-		
+		model.addAttribute("message","Update Status Success");
 		model.addAttribute("orders", orders);
 		return "redirect:/pages/my_account/userOrders/"+idTrans+".htm";
 	}
 	
+	//delete order -> check delete Transaction
+	@RequestMapping(value="my_account/userOrders/delete/{orderId}",method = RequestMethod.GET)
+	public String deleteOrders(ModelMap model,@PathVariable("orderId") int orderId,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("userLogin");
+		
+		Order order=orderDao.getOrderById(orderId);
+		
+		//check lỗi userLogin
+		if (order.getTransaction().getUser().getId() != user.getId()) {
+			System.out.print(user.getId());
+			return "pages/error404";
+		}
+		
+		int idTrans=order.getTransaction().getId();
+		orderDao.delete(orderId);
+		
+		List<Order> orders=orderDao.getListOrderByTrans(idTrans);
+		if (orders.size()!=0) {
+			order.getTransaction().setAmount(order.getTransaction().getAmount().add(order.getAmount().multiply(BigDecimal.valueOf(-1))));
+			transactionDao.createOrUpdate(order.getTransaction());
+			model.addAttribute("message","Delete Success");
+			model.addAttribute("orders", orders);
+			return "redirect:/pages/my_account/userOrders/"+idTrans+".htm";
+		}
+		else {
+			model.addAttribute("message","Delete Orders Success");
+			transactionDao.delete(idTrans);
+			List<Transaction> Trans=transactionDao.getListTransByUser(user.getId());
+			model.addAttribute("Trans", Trans);
+			return "pages/my_account";
+		}
+	}
+	
+	// Modify account
+	@RequestMapping(value="my_account/update",method = RequestMethod.POST)
+	public String updateAccount(ModelMap model,HttpServletRequest request,
+							@RequestParam("fullname") String name,
+							@RequestParam("phone") String phone,
+							@RequestParam("address") String address,
+							@RequestParam("email") String email) {
+		
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("userLogin");
+		
+		boolean kt=true;
+		Matcher matcher = pattern.matcher(email.trim());
+		Matcher matcher1 = pattern1.matcher(phone.trim());
+		if(name.trim().isEmpty()) {
+				kt=false;
+				model.addAttribute("message", "Name cannot be blank");
+		}
+		else if(address.trim().isEmpty()) {
+				kt=false;
+				model.addAttribute("message", "Address cannot be blank");
+		}
+		else if (!matcher.matches()) {
+			kt=false;
+			model.addAttribute("message", "Email invalidate");
+		}
+		else if(!matcher1.matches()) {
+			kt=false;
+			model.addAttribute("message", "Phone is not illegal");
+		}
+		else {
+			User user1=userDao.getDetailByEmail(email.trim());
+			User user2=userDao.getDetailByPhone(phone.trim());
+			if (user1!=null && user1.getId()!=user.getId()) {
+				kt=false;
+				model.addAttribute("message","User's account with this Email already exists");
+			}
+			else if (user2!=null && user2.getId()!=user.getId()) {
+				kt=false;
+				model.addAttribute("message","User's account with this Phone Number already exists");
+			}
+		}
+		
+		if (kt) {
+			// xử lý lưu 
+			user.setEmail(email);
+			user.setPhone(phone);
+			user.setAddress(address);
+			user.setName(name);
+			userDao.createOrUpdate(user);
+			model.addAttribute("message", "Update account Sucess !");
+		}
+		
+		List<Transaction> Trans=transactionDao.getListTransByUser(user.getId());
+		model.addAttribute("Trans", Trans);
+		return "pages/my_account";
+	}
+	
+	// Change password account
+	@RequestMapping(value="my_account/changePassword",method = RequestMethod.POST)
+	public String changePass(ModelMap model,HttpServletRequest request,
+			@RequestParam("current-pwd") String oldPass,
+			@RequestParam("new-pwd") String newPass,
+			@RequestParam("confirm-pwd") String confirmPass) {
+		
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("userLogin");
+		
+		User user1=userDao.getUserById(user.getId());
+		String password=user1.getPassword();
+//		System.out.println(user1.toString()+ user1.getPassword());
+//		System.out.println(oldPass);
+		
+		boolean kt=true;
+		if(oldPass.trim().isEmpty()) {
+			kt=false;
+			model.addAttribute("message", "Password cannot be blank");
+		}
+		else if(oldPass.trim().compareTo(password) !=0 ) {
+			kt=false;
+			model.addAttribute("message", "Old Password is not true");
+		}
+		else if(newPass.trim().isEmpty()) {
+			kt=false;
+			model.addAttribute("message", "New Password cannot be blank");
+		}
+		else if(confirmPass.trim().compareTo(newPass.trim())!=0) {
+			kt=false;
+			model.addAttribute("message", "Confirm Password is false");
+		}
+		if (kt) {
+			// xử lý lưu 
+			user.setPassword(newPass.trim());
+			userDao.createOrUpdate(user);
+			model.addAttribute("message", "Change Password Sucess !");
+		}
+		
+		List<Transaction> Trans=transactionDao.getListTransByUser(user.getId());
+		model.addAttribute("Trans", Trans);
+		return "pages/my_account";
+	}
 	
 	
 	

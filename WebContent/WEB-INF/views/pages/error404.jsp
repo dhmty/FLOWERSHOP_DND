@@ -55,7 +55,7 @@
                     <div class="breadcrumb-content position-relative section-content">
                         <h3 class="title-3">Error 404</h3>
                         <ul>
-                            <li><a href="index.html">Home</a></li>
+                            <li><a href="${pageContext.request.contextPath}/home/index.htm">Home</a></li>
                             <li>Error 404</li>
                         </ul>
                     </div>
@@ -77,7 +77,7 @@
                             <input placeholder="Search..." type="text">
                             <button type="submit"><i class="fa fa-search"></i></button>
                         </form>
-                        <a href="index.html">Back to home page</a>
+                        <a href="${pageContext.request.contextPath}/home/index.htm">Back to home page</a>
                     </div>
                 </div>
             </div>

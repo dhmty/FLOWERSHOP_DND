@@ -74,7 +74,7 @@
                     	<div class="row">
 			                <div class="col-12 col-custom">
 			                    <div class="coupon-accordion">
-			                        <h3>${message} doan 123</h3>
+			                        <h3>Notice: ${message}</h3>
 			                    </div>
 			                </div>
 			            </div>
@@ -159,33 +159,33 @@
                                         <div class="myaccount-content">
                                         	<h3>Account Details</h3>
                                             <div class="account-details-form">
-                                                <form action="#">
+                                                <form:form action="${pageContext.request.contextPath}/pages/my_account/update.htm" method="post">
                                                     <div class="row">
                                                         <div class="col-lg-6 col-custom">
                                                             <div class="single-input-item mb-3">
                                                                 <label for="fullname" class="required mb-1">FullName</label>
-                                                                <input type="text" id="fullname" placeholder="Full Name" />
+                                                                <input type="text" id="fullname" name="fullname" value="${userLogin.name}" />
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6 col-custom">
                                                             <div class="single-input-item mb-3">
                                                                 <label for="phone" class="required mb-1">Phone</label>
-                                                                <input type="text" id="phone" placeholder="Phone" />
+                                                                <input type="text" id="phone" name="phone" value="${userLogin.phone}"/>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="single-input-item mb-3">
                                                         <label for="address" class="required mb-1">Address</label>
-                                                        <input type="text" id="address" placeholder="Address" />
+                                                        <input type="text" id="address" name="address" value="${userLogin.address}" />
                                                     </div>
                                                     <div class="single-input-item mb-3">
                                                         <label for="email" class="required mb-1">Email Address</label>
-                                                        <input type="text" id="email" placeholder="Email Address" />
+                                                        <input type="text" id="email" name="email" value="${userLogin.email}"/>
                                                     </div>
                                                     <div class="single-input-item single-item-button">
-                                                        <button class="btn flosun-button secondary-btn theme-color  rounded-0">Save Changes</button>
+                                                        <button type="submit" class="btn flosun-button secondary-btn theme-color  rounded-0">Save Changes</button>
                                                     </div>
-                                                </form>
+                                               </form:form>
                                             </div>
                                         </div>
                                     </div>
@@ -196,31 +196,31 @@
                                         <div class="myaccount-content">
                                             <h3>Password Change</h3>
                                             <div class="account-details-form">
-                                                <form action="#">
+                                                <form:form action="${pageContext.request.contextPath}/pages/my_account/changePassword.htm" method="post">
                                                     <fieldset>
                                                         <div class="single-input-item mb-3">
                                                             <label for="current-pwd" class="required mb-1">Current Password</label>
-                                                            <input type="password" id="current-pwd" placeholder="Current Password" />
+                                                            <input type="password" id="current-pwd" name="current-pwd" placeholder="Current Password" />
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-lg-6 col-custom">
                                                                 <div class="single-input-item mb-3">
                                                                     <label for="new-pwd" class="required mb-1">New Password</label>
-                                                                    <input type="password" id="new-pwd" placeholder="New Password" />
+                                                                    <input type="password" id="new-pwd" name="new-pwd" placeholder="New Password" />
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-6 col-custom">
                                                                 <div class="single-input-item mb-3">
                                                                     <label for="confirm-pwd" class="required mb-1">Confirm Password</label>
-                                                                    <input type="password" id="confirm-pwd" placeholder="Confirm Password" />
+                                                                    <input type="password" id="confirm-pwd" name="confirm-pwd" placeholder="Confirm Password" />
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </fieldset>
                                                     <div class="single-input-item single-item-button">
-                                                        <button class="btn flosun-button secondary-btn theme-color  rounded-0">Save Changes</button>
+                                                        <button type=submit class="btn flosun-button secondary-btn theme-color  rounded-0">Save Changes</button>
                                                     </div>
-                                                </form>
+                                                </form:form>
                                             </div>
                                         </div>
                                     </div> <!-- Single Tab Content End -->

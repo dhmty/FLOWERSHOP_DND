@@ -87,4 +87,23 @@ public class OrderDAO {
 			}
 			
 		}
+		
+		// delete
+			public boolean delete(int id) {
+				Order order;
+				Session session = factory.openSession();
+				Transaction t = session.beginTransaction();
+				try {
+					order = (Order) session.get(Order.class, id);
+					session.delete(order);
+					t.commit();
+					return true;
+					
+				} catch (Throwable e) {
+					t.rollback();
+					return false;
+				} finally {
+					session.close();
+				}
+			}
 }

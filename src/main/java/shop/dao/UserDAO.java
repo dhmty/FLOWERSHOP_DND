@@ -38,7 +38,17 @@ public class UserDAO {
 		return new ArrayList<>();
 	}
 	
-	
+	//get User by Id
+		public User getUserById(int id) {
+			User user = null;
+			Session session = factory.getCurrentSession();
+			try {
+				user = (User) session.get(User.class, id);
+			} catch (Exception e) {
+				System.out.print("errors" + e.getMessage());
+			}
+			return user;
+		}
 	// get detail account
 	public User getDetailByEmail(String email) {
 		System.out.println(email);

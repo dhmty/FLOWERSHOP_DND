@@ -42,6 +42,14 @@
     <link rel="stylesheet" href="<c:url value='/resources/assets/css/style.css' />">
     
 	<base href="${pageContext.servletContext.contextPath }" />
+	
+	<style type="text/css">
+		.zoom:hover {
+			  -ms-transform: scale(1.1); /* IE 9 */
+			  -webkit-transform: scale(1.1); /* Safari 3-8 */
+			  transform: scale(1.1); 
+			}
+	</style>
 </head>
 
 <body>
@@ -102,7 +110,7 @@
                                     <div class="product-image">
                                         <a class="d-block" href="${pageContext.request.contextPath}/shop/product_detail/${flo.id}.htm">
                                             <img src="${pageContext.request.contextPath}/resources/images/flower/${flo.image}" alt="" class="product-image-1 w-100">
-                                            <img src="${pageContext.request.contextPath}/resources/images/flower/${flo.image}" alt="" class="product-image-2 position-absolute w-100">
+                                            <img src="${pageContext.request.contextPath}/resources/images/flower/${flo.image}" alt="" class="product-image-2 position-absolute w-100 zoom"> 
                                         </a>
 					                    <c:if test="${flo.discount!=0 && flo.discount!=null }">
 					                    	<span class="onsale">-${flo.discount}%</span>

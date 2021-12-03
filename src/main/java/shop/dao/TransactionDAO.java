@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import shop.entity.Order;
+import shop.entity.ShopCart;
 import shop.entity.Transaction;
 import shop.entity.User;
 
@@ -89,4 +90,23 @@ public class TransactionDAO {
 		}
 		
 	}
+	
+	// delete
+		public boolean delete(int id) {
+			Transaction trans;
+			Session session = factory.openSession();
+			org.hibernate.Transaction t = session.beginTransaction();
+			try {
+				trans = (Transaction) session.get(Transaction.class, id);
+				session.delete(trans);
+				t.commit();
+				return true;
+				
+			} catch (Throwable e) {
+				t.rollback();
+				return false;
+			} finally {
+				session.close();
+			}
+		}
 }

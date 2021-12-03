@@ -49,7 +49,7 @@
     
     
     
-    <%@include file="/WEB-INF/views/include/footer.jsp"%>
+
     
       <div class="blog-area-wrapper">
         <!-- Breadcrumb Area Start Here -->
@@ -187,6 +187,8 @@
     </div>
     <!-- Blog Area Wrapper End Here -->
     
+    
+    <%@include file="/WEB-INF/views/include/footer.jsp"%>
      <!-- Scroll to Top Start -->
     <a class="scroll-to-top" href="#">
         <i class="lnr lnr-arrow-up"></i>

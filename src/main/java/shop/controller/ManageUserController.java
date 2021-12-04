@@ -2,13 +2,17 @@ package shop.controller;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.DatatypeConverter;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import shop.dao.ManageUserDAO;
+import shop.entity.Flower;
 import shop.entity.User;
 
 @Controller
@@ -25,8 +30,15 @@ public class ManageUserController {
 	ManageUserDAO manageUserDAO;
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
-	public String home(ModelMap model) {
-		model.addAttribute("listUser", manageUserDAO.getListUser());
+	public String home(ModelMap model, HttpServletRequest request) {
+		/*model.addAttribute("listUser", manageUserDAO.getListUser());*/
+		List<User> flowerList = manageUserDAO.getListUser();
+		PagedListHolder pagedListHolder = new PagedListHolder(flowerList);
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(2);
+		pagedListHolder.setPageSize(5);
+		model.addAttribute("pagedListHolder", pagedListHolder);
 		return "admin/user";
 	}
 	
@@ -40,7 +52,7 @@ public class ManageUserController {
 	}
 	
 	@RequestMapping(value="insert", method=RequestMethod.POST)
-	public String insert(ModelMap model, @ModelAttribute("userNew") User userNew, BindingResult errors) {
+	public String insert(ModelMap model, HttpServletRequest request, @ModelAttribute("userNew") User userNew, BindingResult errors) {
 		System.out.println("has errors " + errors.hasErrors());
 		model.addAttribute("them_saidinhdang", errors.hasErrors());
 		model.addAttribute("userNew", userNew);
@@ -60,22 +72,22 @@ public class ManageUserController {
 			errors.rejectValue("password", "userNew", "Vui lòng nhập password");
 		}
 		if(errors.hasErrors()) {
-			return home(model);
+			return home(model, request);
 		}
 		userNew.setPassword(encryptPassword(userNew.getPassword()));
 		model.addAttribute("insert", manageUserDAO.saveOrUpdate(userNew));
-		return home(model);
+		return home(model, request);
 	}
 	
 	@RequestMapping(value = "edit/{id}", method=RequestMethod.GET)
-	public String showFormEdit(ModelMap model, @ModelAttribute("userEdit") User userEdit, @PathVariable Integer id) {
+	public String showFormEdit(ModelMap model, HttpServletRequest request, @ModelAttribute("userEdit") User userEdit, @PathVariable Integer id) {
 		model.addAttribute("form_edit", true);
 		model.addAttribute("userEdit", manageUserDAO.getUserById(id));
-		return home(model);
+		return home(model, request);
 	}
 	
 	@RequestMapping(value="update", method=RequestMethod.POST)
-	public String update(ModelMap model, @ModelAttribute("userEdit") User userEdit, BindingResult errors) {
+	public String update(ModelMap model, HttpServletRequest request, @ModelAttribute("userEdit") User userEdit, BindingResult errors) {
 		model.addAttribute("sua_saidinhdang", errors.hasErrors());
 		model.addAttribute("userEdit", userEdit);
 		if(userEdit.getName().trim().length() == 0) {
@@ -98,15 +110,28 @@ public class ManageUserController {
 		}*/
 		userEdit.setPassword(encryptPassword(userEdit.getPassword()));
 		model.addAttribute("update", manageUserDAO.updated(userEdit));
-		return home(model);
+		return home(model, request);
 	}
 	
 	@RequestMapping(value="delete", method=RequestMethod.POST)
-	public String delete(ModelMap model, @RequestParam("id") Integer id) {
+	public String delete(ModelMap model, HttpServletRequest request, @RequestParam("id") Integer id) {
 		User user = new User();
 		user.setId(id);
 		model.addAttribute("delete", manageUserDAO.delete(user));
-		return home(model);
+		return home(model, request);
+	}
+	
+	@RequestMapping(value= "", params = "btnsearch")
+	public String searchUser(HttpServletRequest request, ModelMap model) {
+		List<User> users = manageUserDAO.search(request.getParameter("searchInput"));
+		PagedListHolder pagedListHolder = new PagedListHolder(users);
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(2);
+		pagedListHolder.setPageSize(5);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		
+		return "admin/user";
 	}
 	
 	public static String encryptPassword(String password) {

@@ -8,11 +8,24 @@
 <meta charset="utf-8">
 <title>Dashboard</title>
  <%@include file="/resources/admin/common/loadcss.jsp"%> 
+ <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 <style type="text/css">
 *[id$=errors] {
 	color: red;
 	font-style: italic;
 }
+.tdcon {
+width: 300px
+}
+ .contentss{
+ width: 100%;
+   display: block; 
+   text-overflow: ellipsis; 
+   word-wrap: break-word; 
+   overflow: hidden;  
+   max-height: 8em;
+   line-height: 2em;   
+} 
 </style>
 </head>
 <body>
@@ -28,14 +41,6 @@
 							<div class="title">
 								<h4>Danh sách hoa</h4>
 							</div>
-							<!-- Đường dẫn -->
-							<!--  <nav aria-label="breadcrumb" role="navigation">
-								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="phieumua">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">DataTable</li>
-								</ol>
-							</nav>  -->
-							<!-- END Đường dẫn -->
 						</div>
 						<div class="col-md-6 col-sm-12 text-right">
 							<!-- <a href="thiet-bi" class="btn btn-info"
@@ -46,11 +51,29 @@
 						</div>
 					</div>
 				</div>
+							<jsp:useBean id="pagedListHolder" scope="request"
+							type="org.springframework.beans.support.PagedListHolder" />
+						<c:url value="admin/flower.htm" var="pagedLink">
+							<c:param name="p" value="~" />
+						</c:url>
 				 <!-- Simple Datatable start -->
 				 <div class="card-box mb-30">
 					<hr>
-					<div class="pb-20">
-						<table class="data-table table stripe hover nowrap" id="myTable">
+					<div class="pb-20 overflow-auto ">
+								<div class="mr-4">
+									<form class="d-inline-flex mb-5" style="float:right">
+											<input name="searchInput" id="searchInput" class="form-control me-2" type="search"
+												placeholder="Nhập tên hoa" aria-label="Search">
+											
+											<button name="btnsearch" id="searchProduct"
+												class="btn btn-outline-info" type="submit">Search</button>
+										</form>
+								</div>
+								
+								
+						<table class="data-table table stripe hover" style="width: 100%" id="myTable">
+								
+								
 							<thead  class="table-dark">
 								<tr>
 									<th>HÌNH ẢNH</th>
@@ -62,20 +85,23 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="item" items="${listFlower}">
+								<c:forEach var="item" items="${pagedListHolder.pageList}">
 									<tr>
 										<td><img src="resources/images/${item.image}"
 											style="width: 100px; height: 100px"></td>
 										<td>${item.name}</td>
-										<td>${item.price} VND</td>
-										<td>${item.contents}</td>
-										<td>${item.discount }%</td>
+										<td><fmt:formatNumber value="${item.price }" type="currency" currencySymbol="VND"/></td>
+										<%-- <td>${item.price} VND</td> --%>
+										
+										<td class="tdcon"> <p class="contentss"> ${item.contents}</p>   </td>
+										<td>${item.discount} %</td>
+										<%--  <td><fmt:formatNumber value="${item.discount }" type="percent"/></td> --%>
 										
 					
 										<td class="">
 											<div class="row clearfix btn-list">
 												<form action="admin/flower/edit/${item.id}.htm">
-													<button class="btn btn-info " type="submit"
+													<button class="btn btn-info mb-2" type="submit"
 														data-toggle="tooltip" data-placement="top" title="Sửa">
 														<span class="material-icons ">edit</span>
 													</button>
@@ -88,7 +114,7 @@
 													<button type="submit" style="display: none"
 														class="submit_del_btn"></button>
 												</form> 
-												<button class="btn btn-danger delete_btn "
+												<button class="btn btn-danger delete_btn mb-2"
 													data-toggle="tooltip" data-placement="top" title="Xoá"
 													type="button">
 													<span class="material-icons delete_btn">delete</span>
@@ -97,8 +123,13 @@
 										</td> 
 									</tr> 
 								</c:forEach>
+								
 							</tbody>
 						</table>
+								<div class="mr-4">
+									<tg:paging pagedListHolder="${pagedListHolder}"
+										pagedLink="${pagedLink}" />
+								</div>
 					</div>
 				</div>
 				<!-- Simple Datatable End -->
@@ -261,6 +292,7 @@
 										<div class="col-sm-12 col-md-8 input-group mb-0">
 											<form:input path="price" class="form-control" type="text"
 												placeholder="Nhập giá" required="required"/>
+												
 											 <div class="input-group-prepend">
 										          <div class="input-group-text">VND</div>
 										        </div>
@@ -357,7 +389,7 @@
 	</c:if>
 	<script type="text/javascript">
 		//LOAD TABLE 
-		 $('#myTable').DataTable(); 
+		/*  $('#myTable').DataTable();  */
 		
 		
 		//NẾU CLICK NÚT XOÁ
@@ -405,7 +437,19 @@
 				text: content+" thất bại!",
 				icon: 'error',
 			})
+		};
+		
+		/* function trimText(str ,wordCount){
+			var strArray = str.split(' ');
+	    var subArray = strArray.slice(0, wordCount);
+	    var result = subArray.join(" ");
+	    return result + '...';
 		}
-	</script>   
+
+		var str = $('.contentss').text();
+		var result = trimText(str, 10);
+		 $('.contentss').text(result);  */
+	</script>  
+	 
 </body>
 </html>

@@ -8,6 +8,7 @@
 <meta charset="utf-8">
 <title>Dashboard</title>
 <%@include file="/resources/admin/common/loadcss.jsp"%>
+ <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 <style type="text/css">
 *[id$=errors] {
 	color: red;
@@ -28,36 +29,31 @@
 							<div class="title">
 								<h4>Danh sách tài khoản</h4>
 							</div>
-							<!-- Đường dẫn -->
-							<!-- <nav aria-label="breadcrumb" role="navigation">
-								<ol class="breadcrumb">
-									<li class="breadcrumb-item">
-										<a href="index.html">Home</a>
-									</li>
-									<li class="breadcrumb-item active" aria-current="page">DataTable</li>
-								</ol>
-							</nav> -->
-							<!-- END Đường dẫn -->
 						</div>
 						<div class="col-md-6 col-sm-12 text-right">
-							<!-- <div class="dropdown">
-								<a class="btn btn-primary dropdown-toggle" href="#"
-									role="button" data-toggle="dropdown"> January 2018 </a>
-								<div class="dropdown-menu dropdown-menu-right">
-									<a class="dropdown-item" href="#">Export List</a> <a
-										class="dropdown-item" href="#">Policies</a> <a
-										class="dropdown-item" href="#">View Assets</a>
-								</div>
-							</div> -->
 							<a href="#" id="insert_btn" class="btn btn-info"
 								data-toggle="modal" data-target="#bd-example-modal-lg"
 								type="button">THÊM TÀI KHOẢN </a>
 						</div>
 					</div>
 				</div>
+				
+								 <jsp:useBean id="pagedListHolder" scope="request"
+								type="org.springframework.beans.support.PagedListHolder" />
+							<c:url value="admin/user.htm" var="pagedLink">
+								<c:param name="p" value="~" />
+							</c:url> 
 				<!-- Simple Datatable start -->
 				<div class="card-box mb-30">
-					<%-- 					${message} --%>
+					<div class="mr-4">
+							<form class="d-inline-flex mb-5" style="float:right">
+								<input name="searchInput" id="searchInput" class="form-control me-2" type="search"
+									placeholder="Nhập họ tên" aria-label="Search">
+								
+								<button name="btnsearch" id="searchProduct"
+									class="btn btn-outline-info" type="submit">Search</button>
+								</form>
+						</div>
 					<hr>
 					<div class="pb-20">
 						<table class="data-table table stripe hover nowrap" id="myTable">
@@ -72,7 +68,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="item" items="${listUser}" varStatus="row">
+								<c:forEach var="item" items="${pagedListHolder.pageList}" varStatus="row">
 									<tr>
 										<td class="table-plus">${item.name}</td>
 										<td>${item.email}</td>
@@ -84,7 +80,7 @@
 											<div class="row clearfix">
 												<div class="col ">
 													<form action="admin/user/edit/${item.id}.htm">
-														<button class="btn btn-info" type="submit"
+														<button class="btn btn-info mb-2" type="submit"
 															data-toggle="tooltip" data-placement="top" title="Sửa">
 															<i class="material-icons">edit</i>
 														</button>
@@ -112,6 +108,10 @@
 								</c:forEach>
 							</tbody>
 						</table>
+								<div class="mr-4">
+									<tg:paging pagedListHolder="${pagedListHolder}"
+										pagedLink="${pagedLink}" />
+								</div>
 					</div>
 				</div>
 				<!-- Simple Datatable End -->
@@ -338,7 +338,7 @@
 	</c:if>
 	<script type="text/javascript">
 		//LOAD TABLE 
-		$('#myTable').DataTable();
+		/* $('#myTable').DataTable(); */
 		
 		
 		//NẾU CLICK NÚT XOÁ

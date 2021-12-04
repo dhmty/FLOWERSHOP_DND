@@ -103,5 +103,13 @@ public class ManageFlowerDAO {
 		return res;
 	}
 	
-	
+	public List<Flower> search(String name) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM Flower where name LIKE :name";
+		Query query = session.createQuery(hql);
+		query.setParameter("name", "%" + name + "%");
+		List<Flower> list = query.list();
+		System.out.println("list nè: " + list);
+		return list;
+	}
 }

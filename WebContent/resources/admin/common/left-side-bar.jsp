@@ -14,27 +14,27 @@
 				<li>
 					<div class="dropdown-divider"></div>
 				</li>
-				<li class="dropdown" id="qlpm" style="display: none"><a
+				<li class="dropdown" id="qlh" style="display: block"><a
 					href="admin/flower.htm" class="dropdown-toggle no-arrow"
 					data-toggle="tooltip" data-placement="right" title=""
 					data-original-title="QUẢN LÍ PHIẾU MUA"> <span
 						class="micon dw dw-file"></span> <span class="text-yellow">QUẢN
 							LÝ HOA</span>
 				</a></li>
-				<li class="dropdown" id="qltb" style="display: none"><a
+				<li class="dropdown" id="qluser" style="display: block"><a
 					href="admin/user.htm" class="dropdown-toggle no-arrow"
 					data-toggle="tooltip" data-placement="right" title=""
 					data-original-title="QUẢN LÝ TÀI KHOẢN"> <span
 						class="micon dw dw-ruler"></span> <span class="text-yellow">QUẢN
 							LÝ USER</span>
 				</a></li>
-				<li class="dropdown" id="qlnv" style="display: none"><a
+				<!-- <li class="dropdown" id="qlnv" style="display: none"><a
 					href="qlnhanvien" class="dropdown-toggle no-arrow"
 					data-toggle="tooltip" data-placement="right" title=""
 					data-original-title="QUẢN LÍ NHÂN VIÊN"> <span
 						class="micon dw dw-name"></span> <span class="text-yellow"">QUẢN
 							LÍ NHÂN VIÊN</span>
-				</a></li>
+				</a></li> -->
 
 				<!-- 				<li> -->
 				<!-- 					<div class="dropdown-divider"></div> -->
@@ -45,7 +45,7 @@
 				<!-- 				<li> -->
 				<!-- 					<div class="sidebar-small-cap">MỞ RỘNG</div> -->
 				<!-- 				</li> -->
-				<li class="dropdown" id="dangxuat" style="display: none"><a
+				<li class="dropdown" id="dangxuat" style=""><a
 					href="dangxuat" class="dropdown-toggle no-arrow"
 					data-toggle="tooltip" data-placement="right" title=""
 					data-original-title="Đăng xuất"> <span
@@ -56,7 +56,7 @@
 		</div>
 	</div>
 </div>
-<script>
+<!-- <script>
 	window.addEventListener('load', function() {
 		if ("${role}" != "admin") {
 			document.getElementById("qlpm").style.display = "";
@@ -70,4 +70,4 @@
 			document.getElementById("dangxuat").style.display = "";
 		}
 	})
-</script>
+</script> -->

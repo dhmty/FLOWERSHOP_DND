@@ -11,6 +11,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import shop.entity.Flower;
 import shop.entity.User;
 
 @Transactional
@@ -119,6 +120,16 @@ public class ManageUserDAO {
 			t.rollback();
 		}
 		return user;
+	}
+	
+	public List<User> search(String name) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM User where name LIKE :name";
+		Query query = session.createQuery(hql);
+		query.setParameter("name", "%" + name + "%");
+		List<User> list = query.list();
+		System.out.println("list nè: " + list);
+		return list;
 	}
 	
 }

@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,8 +51,17 @@ public class MangeFlowerController {
 	
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
-	public String home(ModelMap model) {
-		model.addAttribute("listFlower", manageFlowerDAO.getListFlower());
+	public String home(ModelMap model, HttpServletRequest request) {
+		/*model.addAttribute("listFlower", manageFlowerDAO.getListFlower());*/
+		
+		List<Flower> flowerList = manageFlowerDAO.getListFlower();
+		PagedListHolder pagedListHolder = new PagedListHolder(flowerList);
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(2);
+		pagedListHolder.setPageSize(5);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		
 		return "admin/flower";
 	}
 	
@@ -75,7 +86,7 @@ public class MangeFlowerController {
 	}
 	
 	@RequestMapping(value="insert", method=RequestMethod.POST)
-	public String insert(ModelMap model,   @ModelAttribute("flowerNew") Flower flowerNew, @RequestParam("photo") MultipartFile photo,   BindingResult errors) {
+	public String insert(ModelMap model, HttpServletRequest request,   @ModelAttribute("flowerNew") Flower flowerNew, @RequestParam("photo") MultipartFile photo,   BindingResult errors) {
 		model.addAttribute("them_saidinhdang", errors.hasErrors());
 		model.addAttribute("flowerNew", flowerNew);
 		
@@ -87,37 +98,38 @@ public class MangeFlowerController {
 		}
 		if(errors.hasErrors()) {
 			model.addAttribute("message", "Vui lòng nhập đầy đủ thông tin!");
-			return home(model);
+			return home(model, request);
 		}
 		try {
 			String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyMMddHHmmss-"));
 			 String fileName = date + photo.getOriginalFilename();
 			String photoPath = baseUploadfile.basePath + File.separator + fileName;
 			photo.transferTo(new File(photoPath));
+			Thread.sleep(2000);
 			flowerNew.setImage(fileName);
 			/*flowerNew.setCategories(categories);
 			flowerNew.setColors(colors);
 			@RequestParam("colors") List<Color> colors,  @RequestParam("categories") List<Category> categories,*/
 			model.addAttribute("insert", manageFlowerDAO.save(flowerNew));
-			return home(model);
+			return home(model, request);
 		} catch (Exception e) {
 			// TODO: handle exception	
 			model.addAttribute("insert", false);
 			model.addAttribute("flowerNew", flowerNew);
-			return home(model);
+			return home(model, request);
 		}
 	}
 	
 	@RequestMapping(value="edit/{id}", method=RequestMethod.GET)
-	public String showFormEdit(ModelMap model, @ModelAttribute("flowerEdit") Flower flowerEdit, @PathVariable String id) {
+	public String showFormEdit(ModelMap model,HttpServletRequest request, @ModelAttribute("flowerEdit") Flower flowerEdit, @PathVariable String id) {
 		model.addAttribute("formEdit", true);
 		model.addAttribute("flowerEdit", manageFlowerDAO.getFlowerById(id));
 		System.out.println(manageFlowerDAO.getFlowerById(id));
-		return home(model);
+		return home(model, request);
 	}
 	
 	@RequestMapping(value="update", method=RequestMethod.POST)
-	public String update(ModelMap model, @ModelAttribute("flowerEdit") Flower flowerEdit, @RequestParam("photo") MultipartFile photo, BindingResult errors) {
+	public String update(ModelMap model,HttpServletRequest request, @ModelAttribute("flowerEdit") Flower flowerEdit, @RequestParam("photo") MultipartFile photo, BindingResult errors) {
 		model.addAttribute("sua_saidinhdang", errors.hasErrors());
 		model.addAttribute("flowerEdit", flowerEdit);
 		if(flowerEdit.getName().trim().length() == 0) {
@@ -127,37 +139,51 @@ public class MangeFlowerController {
 			errors.rejectValue("price", "flowerNew", "Vui lòng chọn giá");
 		}
 		if(errors.hasErrors()) {
-			return home(model);
+			return home(model, request);
 		}
 		if(photo.isEmpty()) {
 			model.addAttribute("update", manageFlowerDAO.update(flowerEdit));
 			model.addAttribute("flowerEdit", new Flower());
-			return home(model);
+			return home(model, request);
 		} else {
 			try {
 				String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyMMddHHmmss-"));
 				String fileName = date + photo.getOriginalFilename();
 				String photoPath = baseUploadfile.basePath + File.separator + fileName;
 				photo.transferTo(new File(photoPath));
+				Thread.sleep(2000);
 				flowerEdit.setImage(fileName);
 				model.addAttribute("update", manageFlowerDAO.update(flowerEdit));
 				model.addAttribute("flowerEdit", new Flower());
-				return home(model);
+				return home(model, request);
 			} catch (Exception e) {
 				// TODO: handle exception
 				model.addAttribute("update", false);
 				model.addAttribute("flowerEdit", flowerEdit);
-				return home(model);
+				return home(model, request);
 			}
 		}
 	}
 	
 	@RequestMapping(value = "delete", method=RequestMethod.POST)
-	public String delete(ModelMap model, @RequestParam("id") Integer id) {
+	public String delete(ModelMap model,HttpServletRequest request, @RequestParam("id") Integer id) {
 		System.out.println("id = " + id);
 		Flower f = new Flower();
 		f.setId(id);
 		model.addAttribute("delete", manageFlowerDAO.delete(f));
-		return home(model);
+		return home(model, request);
+	}
+	
+	@RequestMapping(value= "", params = "btnsearch")
+	public String searchFlower(HttpServletRequest request, ModelMap model) {
+		List<Flower> flowers = manageFlowerDAO.search(request.getParameter("searchInput"));
+		PagedListHolder pagedListHolder = new PagedListHolder(flowers);
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(2);
+		pagedListHolder.setPageSize(5);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		
+		return "admin/flower";
 	}
 }

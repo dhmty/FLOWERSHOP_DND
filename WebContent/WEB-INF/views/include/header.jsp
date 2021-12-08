@@ -98,6 +98,7 @@
 		                                        <li><a href="${pageContext.request.contextPath}/pages/frequently_questions.htm">FAQ</a></li>
 		                                        <li><a href="${pageContext.request.contextPath}/pages/login.htm">Login</a></li>
 		                                        <li><a href="${pageContext.request.contextPath}/pages/register.htm">Register</a></li>
+		                                        <li><a href="${pageContext.request.contextPath}/admin/login.htm">Admin</a></li>
 	                                    	</c:when>
 	                                        <c:otherwise>   
 	                                        	<li><a href="${pageContext.request.contextPath}/pages/my_account.htm">My Account</a></li>
@@ -341,9 +342,9 @@
                     <!-- offcanvas widget area start -->
                     <div class="offcanvas-widget-area">
                         <ul class="menu-top-menu">
-                            <li><a href="about-us.html">About Us</a></li>
+                            <li><a href="${pageContext.request.contextPath}/pages/about_us.htm">About Us</a></li>
                         </ul>
-                        <p class="desc-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <br> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <br> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p class="desc-content">Đến với chúng tôi bạn sẽ thật sự an tâm với thái độ phục vụ nhiệt tình của đội ngũ nhân viên năng động, nhiệt tình và nhiều năm kinh nghiệm trong ngành, họ sẽ tư vấn cho quý khách hàng những bó hoa, những món quà phù hợp và ý nghĩa. Hướng đến sự chuyên nghiệp trong tất cả các quy trình là công việc mà chúng tôi đặt lên hàng đầu nhằm đem lại sự hài lòng tốt nhất cho bạn.</p>
                         <div class="switcher">
                             <div class="language">
                                 <span class="switcher-title">Language: </span>
@@ -351,7 +352,7 @@
                                     <ul>
                                         <li><a href="#">English</a>
                                             <ul class="switcher-dropdown">
-                                                <li><a href="#">German</a></li>
+                                                <li><a href="#">VietNam</a></li>
                                                 <li><a href="#">French</a></li>
                                             </ul>
                                         </li>
@@ -364,7 +365,7 @@
                                     <ul>
                                         <li><a href="#">$ USD</a>
                                             <ul class="switcher-dropdown">
-                                                <li><a href="#">€ EUR</a></li>
+                                                <li><a href="#">đ VND</a></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -375,11 +376,11 @@
                             <ul class="address-info">
                                 <li>
                                     <i class="fa fa-phone"></i>
-                                    <a href="info@yourdomain.com">(1245) 2456 012</a>
+                                    <a href="dndflowershop@gmail.com">057 1405 128</a>
                                 </li>
                                 <li>
                                     <i class="fa fa-envelope"></i>
-                                    <a href="info@yourdomain.com">info@yourdomain.com</a>
+                                    <a href="dndflowershop@gmail.com">dndflowershop@gmail.com</a>
                                 </li>
                             </ul>
                             <div class="widget-social">

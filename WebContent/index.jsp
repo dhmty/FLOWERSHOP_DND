@@ -9,7 +9,8 @@
 <body>
 Hello world
 <%
-String url="home/index.htm";
+ String url="home/index.htm"; 
+/* String url="admin/flower.htm"; */
 response.sendRedirect(url);
 %>
 </body>

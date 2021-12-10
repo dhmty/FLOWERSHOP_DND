@@ -54,8 +54,9 @@
 								<button name="btnsearch" id="searchProduct"
 									class="btn btn-outline-info" type="submit">Search</button>
 								</form>
-						</div>
+					</div>
 					<hr>
+					<div class="mb-3" style=" color: blue">Thông Báo: ${message}</div>
 					<div class="pb-20">
 						<table class="data-table table stripe hover nowrap" id="myTable">
 							<thead class="bg-dark color-white">
@@ -254,9 +255,7 @@
 								<label class="col-sm-12 col-md-2 col-form-label">Mật khẩu
 									</label>
 								<div class="col-sm-12 col-md-10">
-									<form:input path="password" class="form-control" type="text"
-										placeholder="Nhập mật khẩu" required="required"/>
-									<form:errors path="password" />
+									<input class="form-control" type="text" name="newpass" placeholder="Nhập mật khẩu mới">
 								</div>
 							</div>
 							<div class="modal-footer">

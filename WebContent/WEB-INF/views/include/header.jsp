@@ -132,7 +132,7 @@
                                     </a>
 					                </c:if>
 	                                <c:if test="${userLogin!=null}">
-	                                    <a href="#" class="minicart-btn toolbar-btn">
+	                                    <a  href="${pageContext.request.contextPath}/shop/cart.htm" class="minicart-btn toolbar-btn">
 	                                        <i class="fa fa-shopping-cart"></i>
 	                                        <span class="cart-item_count">${sizelistCarts}</span>
 	                                    </a>

@@ -23,10 +23,11 @@
 			<mvc:mapping path="/pages/userOrders/**"/> 
 			
 			
-			<mvc:mapping path="/shop/**"/>
+			<!-- <mvc:mapping path="/shop/**"/>
 			
 			<mvc:exclude-mapping path="/shop/main.htm"/>
-			<mvc:exclude-mapping path="/shop/product_detail.htm"/>
+			<mvc:exclude-mapping path="/shop/search.htm"/>
+			<mvc:exclude-mapping path="/shop/product_detail.htm"/> -->
 			<bean class="shop.interceptor.LoggerInterceptor" />
 		</mvc:interceptor>
 		<bean class="shop.interceptor.GlobalInterceptor" />

@@ -107,7 +107,6 @@
                                         </div>
                                     </div>
                                     <!-- Single Tab Content End -->
-
                                     <!-- Single Tab Content Start -->
                                     <div class="tab-pane fade" id="orders" role="tabpanel">
                                         <div class="myaccount-content">

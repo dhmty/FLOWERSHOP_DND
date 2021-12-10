@@ -1,7 +1,11 @@
 package shop.service;
 
 import java.math.BigDecimal;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
+
+import javax.xml.bind.DatatypeConverter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -83,6 +87,35 @@ public class ShopService {
 			}
 		}
 		return kt;
+	}
+	
+	// mã hóa
+	public static String encryptPassword(String password) {
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(password.getBytes());
+			byte[] digest = md.digest();
+			String myHash = DatatypeConverter.printHexBinary(digest).toUpperCase();
+			return myHash;
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public static boolean descryptPassword(String inputPassword, String hashPassword) {
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(inputPassword.getBytes());
+			byte[] digest = md.digest();
+			String myCheck = DatatypeConverter.printHexBinary(digest).toUpperCase();
+			return hashPassword.equals(myCheck);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 }

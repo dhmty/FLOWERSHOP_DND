@@ -21,15 +21,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import shop.dao.ManageUserDAO;
+import shop.dao.UserDAO;
 import shop.entity.Admin;
 import shop.entity.Flower;
 import shop.entity.User;
+import shop.service.ShopService;
 
 @Controller
 @RequestMapping("/admin/user")
 public class ManageUserController {
 	@Autowired
 	ManageUserDAO manageUserDAO;
+	@Autowired
+	UserDAO userDao;
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String home(ModelMap model, HttpServletRequest request) {
@@ -83,7 +87,19 @@ public class ManageUserController {
 		if(errors.hasErrors()) {
 			return home(model, request);
 		}
-		userNew.setPassword(encryptPassword(userNew.getPassword()));
+		else {
+			if (userDao.getDetailByEmail(userNew.getEmail().trim())!=null) {
+				model.addAttribute("message","Email đã tồn tại");
+				model.addAttribute("insert", false);
+				return home(model, request);
+			} 
+			if (userDao.getDetailByPhone(userNew.getPhone().trim())!=null) {
+				model.addAttribute("message","Số điện thoại đã được đăng ký");
+				model.addAttribute("insert", false);
+				return home(model, request);
+			} 
+		}
+		userNew.setPassword(ShopService.encryptPassword(userNew.getPassword()));
 		model.addAttribute("insert", manageUserDAO.saveOrUpdate(userNew));
 		return home(model, request);
 	}
@@ -96,7 +112,9 @@ public class ManageUserController {
 	}
 	
 	@RequestMapping(value="update", method=RequestMethod.POST)
-	public String update(ModelMap model, HttpServletRequest request, @ModelAttribute("userEdit") User userEdit, BindingResult errors) {
+	public String update(ModelMap model, HttpServletRequest request, @ModelAttribute("userEdit") User userEdit, 
+			@RequestParam("newpass") String newpass, BindingResult errors) {
+		
 		model.addAttribute("sua_saidinhdang", errors.hasErrors());
 		model.addAttribute("userEdit", userEdit);
 		if(userEdit.getName().trim().length() == 0) {
@@ -111,13 +129,31 @@ public class ManageUserController {
 		if(userEdit.getAddress().trim().length() == 0) {
 			errors.rejectValue("address", "userEdit", "Vui lòng nhập địa chỉ");
 		}
-		if(userEdit.getPassword().trim().length() == 0) {
-			errors.rejectValue("password", "userEdit", "Vui lòng nhập password");
-		}
 		/*if(errors.hasErrors()) {
 			return home(model);
 		}*/
-		userEdit.setPassword(encryptPassword(userEdit.getPassword()));
+		else {
+			User user1=userDao.getDetailByEmail(userEdit.getEmail().trim());
+			User user2=userDao.getDetailByPhone(userEdit.getPhone().trim());
+			if (user1!=null && user1.getId()!=userEdit.getId()) {
+				model.addAttribute("message","Email đã tồn tại");
+				model.addAttribute("update", false);
+				return home(model, request);
+			}
+			else if (user2!=null && user2.getId()!=userEdit.getId()) {
+				model.addAttribute("message","Số điện thoại đã được đăng ký");
+				model.addAttribute("update", false);
+				return home(model, request);
+			}
+		}
+		if(newpass.trim().length() != 0) {
+			userEdit.setPassword(ShopService.encryptPassword(newpass.trim()));
+		}
+		else {
+			System.out.print(userEdit.getId());
+			User user_tam= userDao.getUserById(userEdit.getId());
+			userEdit.setPassword(user_tam.getPassword());
+		}
 		model.addAttribute("update", manageUserDAO.updated(userEdit));
 		return home(model, request);
 	}
@@ -143,32 +179,32 @@ public class ManageUserController {
 		return "admin/user";
 	}
 	
-	public static String encryptPassword(String password) {
-		try {
-			MessageDigest md = MessageDigest.getInstance("MD5");
-			md.update(password.getBytes());
-			byte[] digest = md.digest();
-			String myHash = DatatypeConverter.printHexBinary(digest).toUpperCase();
-			return myHash;
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
-	public static boolean descryptPassword(String inputPassword, String hashPassword) {
-		try {
-			MessageDigest md = MessageDigest.getInstance("MD5");
-			md.update(inputPassword.getBytes());
-			byte[] digest = md.digest();
-			String myCheck = DatatypeConverter.printHexBinary(digest).toUpperCase();
-			return hashPassword.equals(myCheck);
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
-	}
+//	public static String encryptPassword(String password) {
+//		try {
+//			MessageDigest md = MessageDigest.getInstance("MD5");
+//			md.update(password.getBytes());
+//			byte[] digest = md.digest();
+//			String myHash = DatatypeConverter.printHexBinary(digest).toUpperCase();
+//			return myHash;
+//		} catch (NoSuchAlgorithmException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			return null;
+//		}
+//	}
+//	
+//	public static boolean descryptPassword(String inputPassword, String hashPassword) {
+//		try {
+//			MessageDigest md = MessageDigest.getInstance("MD5");
+//			md.update(inputPassword.getBytes());
+//			byte[] digest = md.digest();
+//			String myCheck = DatatypeConverter.printHexBinary(digest).toUpperCase();
+//			return hashPassword.equals(myCheck);
+//		} catch (NoSuchAlgorithmException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			return false;
+//		}
+//	}
 	
 }

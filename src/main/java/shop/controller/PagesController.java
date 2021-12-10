@@ -86,12 +86,13 @@ public class PagesController {
 		if (errors.hasErrors()) {
 			return "pages/login";
 		} else {
-			if (userDao.login(user.getEmail(), user.getPassword()) == null) {
+			String pass=ShopService.encryptPassword(user.getPassword().trim());
+			if (userDao.login(user.getEmail(), pass) == null) {
 				model.addAttribute("message", "Invalid Email or Password");
 				model.addAttribute("detailUser", new User());
 				return "pages/login";
 			} else {
-				User _user = userDao.login(user.getEmail(), user.getPassword());
+				User _user = userDao.login(user.getEmail(), pass);
 				System.out.println("fullname...." + _user.getName());
 				session.setAttribute("userLogin", _user);
 				return "redirect:/pages/my_account.htm";
@@ -164,7 +165,7 @@ public class PagesController {
 				String subject = "RESET USER'S PASSWORD";
 				String body = "User's Email: "+ email.trim() + "\nYour New Password: "+passReset;
 				
-				user.setPassword(passReset);
+				user.setPassword(ShopService.encryptPassword(passReset));
 				userDao.createOrUpdate(user);
 				mailer.send(from, email, subject, body);
 				model.addAttribute("success", "Send Success. Check your email to reset password.");
@@ -202,7 +203,7 @@ public class PagesController {
 					model.addAttribute("message","User's account with this Phone Number already exists");
 					return "pages/register";
 				} 
-				user.setPassword(user.getPassword().trim());
+				user.setPassword(ShopService.encryptPassword(user.getPassword().trim()));
 				user.setAddress("");
 				userDao.createOrUpdate(user);
 				return "pages/login";
@@ -387,7 +388,7 @@ public class PagesController {
 			kt=false;
 			model.addAttribute("message", "Password cannot be blank");
 		}
-		else if(oldPass.trim().compareTo(password) !=0 ) {
+		else if( (!ShopService.descryptPassword(oldPass.trim(),password)) ) {
 			kt=false;
 			model.addAttribute("message", "Old Password is not true");
 		}
@@ -401,7 +402,7 @@ public class PagesController {
 		}
 		if (kt) {
 			// xử lý lưu 
-			user.setPassword(newPass.trim());
+			user.setPassword(ShopService.encryptPassword(newPass.trim()));
 			userDao.createOrUpdate(user);
 			model.addAttribute("message", "Change Password Sucess !");
 		}

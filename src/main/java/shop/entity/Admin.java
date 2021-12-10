@@ -5,14 +5,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Table(name = "Admin")
 public class Admin {
 	@Id
 	@GeneratedValue
 	private int id;
+	
+	@NotBlank(message = "Username cannot be blank")
 	private String username;
+	@NotBlank(message = "Password cannot be blank")
 	private String password;
+	@NotBlank(message = "Name cannot be blank")
 	private String name;
 	
 	@Override

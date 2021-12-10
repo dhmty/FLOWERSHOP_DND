@@ -3,6 +3,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="fmt" %>
+<%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -102,8 +103,13 @@
                     </div>
                     <!--shop toolbar end-->
                     <!-- Shop Wrapper Start -->
+                    <jsp:useBean id="pagedListHolder" scope="request"
+							type="org.springframework.beans.support.PagedListHolder" />
+						<c:url value="${contextPath}/shop/main.htm" var="pagedLink">
+							<c:param name="p" value="~" />
+						</c:url>
                     <div class="row shop_wrapper grid_4">
-                    <c:forEach var="flo" items="${flowers}">
+                    <c:forEach var="flo" items="${pagedListHolder.pageList}">
                         <div class="col-lg-3 col-md-6 col-sm-6  col-custom product-area">
                             <div class="product-item">
                                 <div class="single-product position-relative mr-0 ml-0">
@@ -283,8 +289,9 @@
                       </c:forEach>
                     </div>
                     <!-- Shop Wrapper End -->
+                    
                     <!-- Bottom Toolbar Start -->
-                    <div class="row">
+                  <!--   <div class="row">
                         <div class="col-sm-12 col-custom">
                             <div class="toolbar-bottom">
                                 <div class="pagination">
@@ -299,9 +306,13 @@
                                 <p class="desc-content text-center text-sm-right mb-0">Showing 1 - 12 of 34 result</p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- Bottom Toolbar End -->
                 </div>
+                <div class="mr-4">
+						<tg:paging pagedListHolder="${pagedListHolder}"
+							pagedLink="${pagedLink}"/>
+					</div>
             </div>
         </div>
     </div>

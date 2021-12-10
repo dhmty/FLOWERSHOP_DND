@@ -58,9 +58,9 @@
                 <div class="row">
                     <div class="col-12 text-center">
                         <div class="breadcrumb-content position-relative section-content">
-                            <h3 class="title-3">Blog Details Fullwidth</h3>
+                            <h3 class="title-3">Blog Details</h3>
                             <ul>
-                                <li><a href="index.html">Home</a></li>
+                                <li><a href="${pageContext.request.contextPath}/home/index.htm">Home</a></li>
                                 <li>Blog</li>
                             </ul>
                         </div>
@@ -77,16 +77,23 @@
                         <!-- Blog Details wrapper Area Start -->
                         <div class="blog-post-details">
                             <figure class="blog-post-thumb mb-5">
-                                <img src="assets/images/blog/blog1.jpg" alt="Blog Image">
+                                <img src="${pageContext.request.contextPath}/resources/assets/images/blog/blog1.jpg" alt="Blog Image">
                             </figure>
                             <section class="blog-post-wrapper product-summery">
                                 <div class="section-content section-title">
-                                    <h2 class="section-title-2 mb-3">Standard blog post one</h2>
-                                    <p class="mb-4">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage.</p>
+                                    <h2 class="section-title-2 mb-3">DND Flower Shop Blog</h2>
+                                    <p class="mb-4">Hoa là món quà vô giá mà thiên nhiên đã dành tặng cho con người. Mỗi loài hoa mang một vẻ đẹp và sắc thái riêng, chính vì vậy mà người thưởng hoa có thể gởi gắm tâm tư tình cảm của mình vào chậu hoa một cách tinh tế, ý nhị.</p>
                                     <blockquote class="blockquote mb-4">
-                                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock</p>
+                                        <p>Shop Hoa DND sẽ là cầu nối để kết nối những tình cảm thân yêu của bạn, làm vững bền mối thâm giao bằng hữu tạo dựng đẳng cấp và phong cách khác biệt trong cuộc sống và công việc hay để chia ngọt sẻ bùi, gửi gắm tâm tư ...</p>
                                     </blockquote>
-                                    <p class="mb-5">and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
+                                    <p class="mb-5">Hãy liên hệ với chúng tôi, vạn sẽ hoàn toàn yên tâm để chúng tôi có thể thay bạn mang đến niềm vui cho những người thân yêu, bạn bè, đối tác,…của bạn. Cũng chỉ một thao tác bạn đã có một bó hoa đầy màu sắc cùng những thông điệp ngọt ngào dành tặng người thân, những người đặc biệt.
+										Đến với chúng tôi bạn sẽ thật sự an tâm với thái độ phục vụ nhiệt tình của đội ngũ nhân viên năng động, nhiệt tình và nhiều năm kinh nghiệm trong ngành, họ sẽ tư vấn cho quý khách hàng những bó hoa, những món quà phù hợp và ý nghĩa.
+										-	Dịch vụ tốt.
+										-	Hoa luôn tươi mới
+										-	Thẩm mỹ, sáng tạo.
+										-	Mang tính nghệ thuật độc đáo
+										Hướng đến sự chuyên nghiệp trong tất cả các quy trình là công việc mà chúng tôi đặt lên hàng đầu nhằm đem lại sự hài lòng tốt nhất cho bạn.
+                                     </p>
                                 </div>
                                 <div class="share-article">
                                     <span class="left-side">
@@ -109,11 +116,11 @@
                                         <div class="single-comment-wrap mb-4 d-flex">
                                             <figure class="author-thumb">
                                                 <a href="#">
-                                                    <img src="assets/images/review/1.jpg" alt="Author">
+                                                    <img src="${pageContext.request.contextPath}/resources/assets/images/testimonial/Duy1.jpg" alt="Author">
                                                 </a>
                                             </figure>
                                             <div class="comments-info">
-                                                <p class="mb-2">This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet</p>
+                                       			<p class="mb-2">Những chàng trai này đã hoàn toàn xuất sắc. Chủ đề hoàn hảo và tốt nhất là bạn có nhiều tùy chọn để chọn! Nhóm hỗ trợ tốt nhất từ ​​trước đến nay! Phản hồi rất nhanh! Cám ơn rất nhiều! Tôi khuyên bạn nên chọn nơi này và những con người ở đây!</p>
                                                 <div class="comment-footer d-flex justify-content-between">
                                                     <a href="#" class="author"><strong>Duy</strong> - July 30, 2021</a>
                                                     <a href="#" class="btn-reply"><i class="fa fa-reply"></i> Reply</a>
@@ -123,26 +130,26 @@
                                         <div class="single-comment-wrap mb-4 comment-reply d-flex">
                                             <figure class="author-thumb">
                                                 <a href="#">
-                                                    <img src="assets/images/review/1.jpg" alt="Author">
+                                                    <img src="${pageContext.request.contextPath}/resources/assets/images/icon/author2.png" alt="Author">
                                                 </a>
                                             </figure>
                                             <div class="comments-info">
-                                                <p class="mb-2">Praesent bibendum risus pellentesque faucibus rhoncus. Etiam a mollis odio. Integer urna nisl, fermentum eu mollis et, gravida eu elit.</p>
+                                                <p class="mb-2">Chân Thành cảm ơn những góp ý bổ ý của bạn. Shop chắc chắn sẽ ngày càng hoàn thiện hơn nữa.</p>
                                                 <div class="comment-footer d-flex justify-content-between">
-                                                    <a href="#" class="author"><strong>Jack</strong> - July 30, 2021</a> <a href="#" class="btn-reply"><i class="fa fa-reply"></i> Reply</a>
+                                                    <a href="#" class="author"><strong>Admin</strong> - July 30, 2021</a> <a href="#" class="btn-reply"><i class="fa fa-reply"></i> Reply</a>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="single-comment-wrap mb-4 d-flex">
                                             <figure class="author-thumb">
                                                 <a href="#">
-                                                    <img src="assets/images/review/1.jpg" alt="Author">
+                                                    <img src="${pageContext.request.contextPath}/resources/assets/images/testimonial/Minh.jpg" alt="Author">
                                                 </a>
                                             </figure>
                                             <div class="comments-info">
-                                                <p class="mb-2">Praesent bibendum risus pellentesque faucibus rhoncus. Etiam a mollis odio. Integer urna nisl, fermentum eu mollis et, gravida eu elit.</p>
+                                        		<p class="mb-2">Mình đã mua hoa ở đây hơn 4 năm rồi. Từ trang trí đến độ tươi của hoa chưa bao giờ shop làm mình thất vọng. Cám ơn các bạn đã luôn đem đến dịch vụ tốt cho khách hàng! Mình sẽ tiếp tục ủng hộ các bạn!</p>
                                                 <div class="comment-footer d-flex justify-content-between">
-                                                    <a href="#" class="author"><strong>Duy</strong> - July 30, 2021</a>
+                                                    <a href="#" class="author"><strong>Minh</strong> - July 30, 2021</a>
                                                     <a href="#" class="btn-reply"><i class="fa fa-reply"></i> Reply</a>
                                                 </div>
                                             </div>

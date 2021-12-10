@@ -30,6 +30,7 @@ import shop.entity.Order;
 import shop.entity.ShopCart;
 import shop.entity.Transaction;
 import shop.entity.User;
+import shop.service.ShopService;
 
 
 @Controller
@@ -59,6 +60,9 @@ public class TestController {
 
 	@Autowired
 	CategoryDAO categoryDao;
+	
+	@Autowired
+	ModelController mc;
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public String index() {
@@ -93,7 +97,9 @@ public class TestController {
 //		f1.setImage("test");
 //		f1.setContents("test content");
 //		flowerDao.CreateOrUpate(f1);
-		List<Flower> listFlower=flowerDao.getFlowerByName("oa");
+		
+		List<Flower> listFlower=mc.arrange(6,12);
+		//List<Flower> listFlower=flowerDao.getFlowerByName("oa");
 		for (Flower f:listFlower) {
 			System.out.println(f.toString());
 //			System.out.println("Colors : "+ f.getColors().size());

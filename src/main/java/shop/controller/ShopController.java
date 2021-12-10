@@ -10,11 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,8 +53,14 @@ public class ShopController {
 	
 	// Mapping jsp
 	@RequestMapping("main")
-	public String index(ModelMap model) {
+	public String index(ModelMap model, HttpServletRequest request) {
 		List<Flower> list=flowerDao.getListFlower();
+		PagedListHolder pagedListHolder = new PagedListHolder(list);
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(2);
+		pagedListHolder.setPageSize(12);
+		model.addAttribute("pagedListHolder", pagedListHolder);
 		model.addAttribute("flowers",list);
 		return "shop/main";
 	}
@@ -63,6 +71,14 @@ public class ShopController {
 		String text=request.getParameter("search");
 		System.out.println(text);
 		List<Flower> list=flowerDao.getFlowerByName(text);
+		
+		PagedListHolder pagedListHolder = new PagedListHolder(list);
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(2);
+		pagedListHolder.setPageSize(12);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		
 		model.addAttribute("flowers",list);
 		return "shop/main";
 	}
@@ -220,7 +236,12 @@ public class ShopController {
 			
 			String message="";
 			if ( !k || !kt ) message="Place Order failed, Check your Cart or Send Message to DND FlowerShop";
-			else message="Place Order Success, Return shop to continue buy";
+			else {
+				message="Place Order Success, Return shop to continue buy";
+				model.addAttribute("listCarts",mc.dem(request));
+				model.addAttribute("sizelistCarts",mc.size(request));
+				model.addAttribute("totalCarts",mc.total(request));
+			}
 			model.addAttribute("message", message);
 			
 			return "shop/checkout";

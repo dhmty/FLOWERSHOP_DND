@@ -73,7 +73,7 @@
                     <div class="intro11-content-2 text-center">
                         <h1 class="different-title">Quality</h1>
                         <h2 class="title text-white">The Gift of Flowers</h2>
-                        <a href="${pageContext.request.contextPath}/shop/man.htm" class="btn flosun-button  secondary-btn theme-color rounded-0">Shop Collection</a>
+                        <a href="${pageContext.request.contextPath}/shop/main.htm" class="btn flosun-button  secondary-btn theme-color rounded-0">Shop Collection</a>
                     </div>
                     <!-- Intro Content End -->
                 </div>
@@ -468,7 +468,7 @@
                                         <span><a href="#">By admin</a></span>
                                         <span>December 1, 2021</span>
                                     </div>
-                                    <p>Lorem ipsu dolor sit amet cons elits cumque adipisicing, sed do incid eiusmod tempor ut labore et dolore eveniet .</p>
+                                    <p>Hoa là món quà vô giá mà thiên nhiên đã dành tặng cho con người. Mỗi loài hoa mang một vẻ đẹp và sắc thái riêng, chính vì vậy mà người thưởng hoa có thể gởi gắm tâm tư tình cảm của mình vào chậu hoa một cách tinh tế, ý nhị.</p>
                                     <a href="${pageContext.request.contextPath}/blog/detail.htm" class="readmore">Read More <i class="fa fa-long-arrow-right"></i></a>
                                 </div>
                             </div>
@@ -490,7 +490,7 @@
                                         <span><a href="#">By admin</a></span>
                                         <span>November 11, 2021</span>
                                     </div>
-                                    <p>Lorem ipsu dolor sit amet cons elits cumque adipisicing, sed do incid eiusmod tempor ut labore et dolore eveniet .</p>
+                                    <p>Hoa là món quà vô giá mà thiên nhiên đã dành tặng cho con người. Mỗi loài hoa mang một vẻ đẹp và sắc thái riêng, chính vì vậy mà người thưởng hoa có thể gởi gắm tâm tư tình cảm của mình vào chậu hoa một cách tinh tế, ý nhị.</p>
                                     <a href="${pageContext.request.contextPath}/blog/detail.htm" class="readmore">Read More <i class="fa fa-long-arrow-right"></i></a>
                                 </div>
                             </div>
@@ -512,7 +512,7 @@
                                         <span><a href="#">By admin</a></span>
                                         <span>October 7, 2021</span>
                                     </div>
-                                    <p>Lorem ipsu dolor sit amet cons elits cumque adipisicing, sed do incid eiusmod tempor ut labore et dolore eveniet .</p>
+                                   <p>Hoa là món quà vô giá mà thiên nhiên đã dành tặng cho con người. Mỗi loài hoa mang một vẻ đẹp và sắc thái riêng, chính vì vậy mà người thưởng hoa có thể gởi gắm tâm tư tình cảm của mình vào chậu hoa một cách tinh tế, ý nhị.</p>
                                     <a href="${pageContext.request.contextPath}/blog/detail.htm" class="readmore">Read More <i class="fa fa-long-arrow-right"></i></a>
                                 </div>
                             </div>

@@ -53,7 +53,7 @@
                                     <img src="<c:url value='/resources/assets/images/logo/logo-footer.jpg' />" alt="Logo Image">
                                 </a>
                             </div>
-                            <p class="desc-content">Lorem Khaled Ipsum is a major key to success. To be successful you’ve got to work hard you’ve got to make it.</p>
+                            <p class="desc-content">DND FLower Shop - Nơi những vẻ đẹp được bộc lộ qua từng sắc màu.</p>
                             <div class="social-links">
                                 <ul class="d-flex">
                                     <li>
@@ -89,11 +89,11 @@
                         <div class="single-footer-widget">
                             <h2 class="widget-title">Information</h2>
                             <ul class="widget-list">
-                                <li><a href="about-us.html">Our Company</a></li>
-                                <li><a href="contact-us.html">Contact Us</a></li>
-                                <li><a href="about-us.html">Our Services</a></li>
-                                <li><a href="about-us.html">Why We?</a></li>
-                                <li><a href="about-us.html">Careers</a></li>
+                                <li><a href="${pageContext.request.contextPath}/pages/about_us.htm">Our Company</a></li>
+                                <li><a href="${pageContext.request.contextPath}/pages/contact_us.htm">Contact Us</a></li>
+                                <li><a href="${pageContext.request.contextPath}/pages/about_us.htm">Our Services</a></li>
+                                <li><a href="${pageContext.request.contextPath}/pages/about_us.htm">Why We?</a></li>
+                                <li><a href="${pageContext.request.contextPath}/pages/about_us.htm">Careers</a></li>
                             </ul>
                         </div>
                     </div>
@@ -101,11 +101,11 @@
                         <div class="single-footer-widget">
                             <h2 class="widget-title">Quicklink</h2>
                             <ul class="widget-list">
-                                <li><a href="about-us.html">About</a></li>
-                                <li><a href="blog.html">Blog</a></li>
-                                <li><a href="shop.html">Shop</a></li>
-                                <li><a href="cart.html">Cart</a></li>
-                                <li><a href="contact-us.html">Contact</a></li>
+                                <li><a href="${pageContext.request.contextPath}/pages/about_us.htm">About</a></li>
+                                <li><a href="${pageContext.request.contextPath}/blog/main.htm">Blog</a></li>
+                                <li><a href="${pageContext.request.contextPath}/shop/main.htm">Shop</a></li>
+                                <li><a href="${pageContext.request.contextPath}/shop/main.htm">Product</a></li>
+                                <li><a href="${pageContext.request.contextPath}/pages/contact_us.htm">Contact</a></li>
                             </ul>
                         </div>
                     </div>
@@ -113,11 +113,11 @@
                         <div class="single-footer-widget">
                             <h2 class="widget-title">Support</h2>
                             <ul class="widget-list">
-                                <li><a href="contact-us.html">Online Support</a></li>
-                                <li><a href="contact-us.html">Shipping Policy</a></li>
-                                <li><a href="contact-us.html">Return Policy</a></li>
-                                <li><a href="contact-us.html">Privacy Policy</a></li>
-                                <li><a href="contact-us.html">Terms of Service</a></li>
+                                <li><a href="${pageContext.request.contextPath}/pages/contact_us.htm">Online Support</a></li>
+                                <li><a href="${pageContext.request.contextPath}/pages/contact_us.htm">Shipping Policy</a></li>
+                                <li><a href="${pageContext.request.contextPath}/pages/contact_us.htm">Return Policy</a></li>
+                                <li><a href="${pageContext.request.contextPath}/pages/contact_us.htm">Privacy Policy</a></li>
+                                <li><a href="${pageContext.request.contextPath}/pages/contact_us.htm">Terms of Service</a></li>
                             </ul>
                         </div>
                     </div>
@@ -125,7 +125,7 @@
                         <div class="single-footer-widget">
                             <h2 class="widget-title">See Information</h2>
                             <div class="widget-body">
-                                <address>123, ABC, Road ##, Main City, Your address goes here.<br>Phone: 01234 567 890<br>Email: https://example.com</address>
+                                <address>97 Man Thien Street, Thu Duc City,<br> Ho Chi Minh City.<br>Phone: 057 1405 128<br>Email: dndflowershop@gmail.com</address>
                             </div>
                         </div>
                     </div>
@@ -137,7 +137,7 @@
                 <div class="row">
                     <div class="col-12 text-center col-custom">
                         <div class="copyright-content">
-                            <p>Copyright © 2020 <a href="https://hasthemes.com/" title="https://hasthemes.com/">HasThemes</a> | Built with&nbsp;<strong>FloSun</strong>&nbsp;by <a href="https://hasthemes.com/" title="https://hasthemes.com/">HasThemes</a>.</p>
+                            <p>Copyright © 2021 <a href="dndflowershop@gmail.com" title="dndflowershop@gmail.com">DND FLOWER SHOP</a> | Built with&nbsp;<strong>Flower Shop</strong>&nbsp;by <a href="dndflowershop@gmail.com" title="dndflowershop@gmail.com">DND Group</a>.</p>
                         </div>
                     </div>
                 </div>

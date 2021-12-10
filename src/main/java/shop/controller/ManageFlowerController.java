@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import shop.bean.UploadFile;
 import shop.dao.CategoryDAO;
 import shop.dao.ColorDAO;
+import shop.dao.FlowerDAO;
 import shop.dao.ManageFlowerDAO;
 import shop.entity.Admin;
 import shop.entity.Category;
@@ -39,6 +40,9 @@ import shop.entity.User;
 public class ManageFlowerController {
 	@Autowired
 	ManageFlowerDAO manageFlowerDAO;
+	
+	@Autowired
+	FlowerDAO flowerDao;
 	
 	@Autowired
 	ColorDAO colorDAO;
@@ -160,6 +164,9 @@ public class ManageFlowerController {
 			return home(model, request);
 		}
 		if(photo.isEmpty()) {
+			System.out.print(flowerEdit.getId());
+			Flower flower_tam= flowerDao.getFlowerById(flowerEdit.getId());
+			flowerEdit.setImage(flower_tam.getImage());
 			model.addAttribute("update", manageFlowerDAO.update(flowerEdit));
 			model.addAttribute("flowerEdit", new Flower());
 			return home(model, request);

@@ -270,7 +270,7 @@ width: 300px
 										 <div class="col-sm-12 col-md-8">
 											<img src="resources/images/flower/${flowerEdit.image}" /> <input
 												name="photo" class="form-control" type="file"
-												placeholder="Chọn ảnh " required="required"/>
+												placeholder="Chọn ảnh "/>
 											<!-- <input name="photo" class="form-control"
 												style="display: none" /> -->
 										</div> 

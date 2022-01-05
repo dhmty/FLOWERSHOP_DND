@@ -1,3 +1,4 @@
+```bash
 # FLOWERSHOP_DND
 #NHOM_36
 #Thành_Viên:
@@ -78,4 +79,6 @@
 
 *ĐÁNH_GIÁ_VÀ_CẢI_THIỆN_ỨNG_DỤNG:
     - Ứng dụng mang tính chất mô phỏng và đáp ứng nhu cầu môn học cũng như mua hoa ở phía người sử dụng.
-	  - Các chức năng cần cải thiện: chức năng liên kết mở rộng quy mô và sử dụng tối ưu, giao diện hợp lý cũng như phù hợp với nhu cầu người dử dụng.
+    - Các chức năng cần cải thiện: chức năng liên kết mở rộng quy mô và sử dụng tối ưu, giao diện hợp lý cũng như phù hợp với nhu cầu người dử dụng.
+
+```

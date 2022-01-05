@@ -65,10 +65,10 @@
    └──[WebContent]                                            
       └──[META-INF] 
       └──[resources]                                          #Chứa các file xử lý giao diện và hình ảnh
-      |  └──[admin] 
-      |  └──[assets]
-      |  └──[ckeditor] 
-      |  └──[images] 
+      │  └──[admin] 
+      │  └──[assets]
+      │  └──[ckeditor] 
+      │  └──[images] 
       └──[WEB-INF]                                            #Chứa các file cấu hình và giao diện đồ án
          └──[configs]
          └──[lib]
